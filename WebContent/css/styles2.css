@@ -1,0 +1,141 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    background-color:#011034;
+    flex-direction: column;
+}
+
+.navbar{
+    display: flex;
+    width:100%;
+    border-bottom: solid 1px white;
+    background-color: #011034;
+    justify-content: space-between;
+
+}
+nav > .nav_section {
+    display: flex;
+    padding: 1rem 0px;
+    align-items: center;
+    gap: 1rem;
+
+}
+#link_section, #login_section{
+   padding: 1rem;
+}
+
+h1,h2,h3, a, li, p, th, td{
+    color: white;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+
+.nav_section > a{
+    text-decoration: none;
+    background-color: #2B4F8D;
+    border-radius: 10px;
+    padding: 1rem;
+}
+.nav_section > a:hover{
+    color: #FE00EC transparent;
+    background-color: #FE00EC;
+    transition: 0.5s;
+}
+
+.main_section{
+    
+    width: 100%;
+    background-image: url("https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80");
+    align-items: center;
+    justify-content: center;
+    padding:5rem;
+    padding-block: 10rem;
+}
+
+.main_section > h1 ,.main_section > p{
+    text-align: center;
+}
+.main_section>h1{
+    font-size: 30pt;
+}
+
+
+dev{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: block;
+}
+
+dev > li{
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    padding: 1rem;
+}
+
+.form-container, .title-container{
+    
+    align-items: center;
+    justify-content: center;
+}
+
+.title-container > h1{
+    font-size:30pt;
+    margin: 1rem, 0rem;
+    justify-self: center;
+}
+.form-container{
+    display: grid;
+}
+.title-container{
+    display:grid;
+}
+.title-container p{
+    padding: 0;
+}
+
+.form-container form{
+    padding: 1rem;
+    background-color: #2B4F8D;
+    border-radius:15px;
+}
+
+.table-section{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-table{
+    border-collapse: collapse;
+}
+
+.doc-table > tbody tr {
+    border:2px solid white;
+}
+.doc-table > tbody tr:nth-child(even){
+    background-color: #2B4F8D;
+}
+
+.prod-row > td{
+    padding: 2rem;
+}
+
+.prod-row{
+    justify-content: center;
+}
+
+
+
+
+
+
+

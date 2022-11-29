@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+*{
+    box-sizing: border-box;
+    background-color: #1C1925;
+}
+h1{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 1000;
+    font-size: 30px;
+    color: #F5EFF3;
+    text-decoration: none;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+
+p {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #F5EFF3;
+    margin: 0;
+    padding-top: 5px;
+}
+
+li, a{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #F5EFF3;
+    text-decoration: none;
+    background-color: #383158;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 10%;
+}
+nav{
+    padding: 1rem;
+    background-color: #383158;
+    border-radius: 10px;
+}
+
+.nav_links{
+    list-style: none;
+    padding:0;
+    background-color:inherit;
+}
+
+.nav_links li{
+    display:inline-block;
+    padding:10px;
+    margin-inline: 10px;
+}
+
+.nav_links li a{
+    transition: all 0.3s ease 0s;
+}
+.nav_links li a:hover{
+    color:#CA99FF;
+}
+
+form{
+    
+    padding: 1rem;
+    margin: 4rem auto;
+    background-color: #383158;
+    width: fit-content;
+    border-radius: 15px;
+}
+
+#textbox{
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1.5px solid #0088a9;
+    outline:none;
+    height: 30px;
+    text-align: center;
+    background-color: inherit;
+
+}
+
+.formdiv{
+    background-color: inherit;
+}
+
+.product_btn{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #F5EFF3;
+    background-color: #383158;
+    margin-block: 10px;
+    padding-inline: 20px;
+    border:none;
+    transition: all 0.3s ease 0s;
+}
+.product_btn:hover{
+    color:#CA99FF;
+    cursor: pointer;
+    border: 1px solid #F5EFF3;
+}
+
+#order_list{
+    border-collapse:collapse;
+    margin:20px auto;
+    border: 2px solid #F5EFF3;
+    border-radius: 5px;
+}
+
+
+
+#order_list th, td{
+    font-family: "Montserrat", sans-serif;
+    color: #F5EFF3;
+}
+
+#order_list th{
+    font-weight: 500;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #383158;
+    padding: 5px 5px;
+}
+
+#order_list td{
+    font-weight: 500;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.custinfo td{
+    background-color: #5f5392;
+    font-size: 13px;
+}
+
+.cart_table {
+    border-collapse: collapse;
+    border: 2px solid #F5EFF3;
+    margin: auto;
+    font-family: "Montserrat", sans-serif;
+    color: #F5EFF3;
+}
+.cart_table th{
+    border: none;
+    
+    font-family: "Montserrat", sans-serif;
+    color: #F5EFF3;
+    background-color: #5f5392;
+    font-size: 14;
+    padding-inline: 10px
+    ;
+}
+.cart_table td{
+    background-color: #5f5392;
+    padding-top: 5px;
+}
+.cart_table tr{
+    border-bottom: 1px solid #F5EFF3;
+    
+}
+
+#inner_table {
+    border: 10px solid white;
+}
+#order_total{
+    background-color: #383158;
+}
+
+.product_list{
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.product_list th{
+    border: none;
+    text-align: left;
+    font-family: "Montserrat", sans-serif;
+    color: #F5EFF3;
+    background-color: #5f5392;
+    font-size: 16;
+}
+.product_list td{
+    font-family: "Montserrat", sans-serif;
+    color: #F5EFF3;
+    font-size: 12pt;
+    padding: 4px;
+}
+
+#add:hover{
+    color:#CA99FF;
+    cursor: pointer;
+}
+#add{
+    border: none;
+    padding: 2px;
+    background-color: inherit;
+}
+
+.product_list tr{
+    border-bottom: 1px solid #F5EFF3;
+}
+.product_list tr:hover{
+    background-color: #383158;
+}
