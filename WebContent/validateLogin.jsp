@@ -19,11 +19,8 @@
 
 
 <%!
-	
-	String validateLogin(JspWriter out,HttpServletRequest request, HttpSession session) throws IOException
+	String validateLogin(JspWriter out,HttpServletRequest request, HttpSession session) throws IOException, SQLException
 	{
-		int resultOfQuery=-21;
-		String exception = "";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String retStr = null;
@@ -33,41 +30,28 @@
 		if((username.length() == 0) || (password.length() == 0))
 				return null;
 
-
-		// Make the connection
-		String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
-		//String url = "jdbc:sqlserver://cosc304_sqlserver:1433;TrustServerCertificate=True";				
-		String uid = "sa";
-		String pw = "304#sa#pw";
-
-		try //( Connection con = DriverManager.getConnection(url, uid, pw);)
+		try 
 		{
-			// TODO: Check if userId and password match some customer account. If so, set retStr to be the username.
 			getConnection();
-			String innerQuery = "SELECT COUNT(1) FROM customer WHERE userId = ? AND password = ?";
-			PreparedStatement pstmt = con.prepareStatement(innerQuery);
-			pstmt.setString(1,username);
-			pstmt.setString(2,password);
+			Statement stmt = con.createStatement(); 
+			stmt.execute("USE orders");
+
+			String sql = "SELECT * FROM Customer WHERE userId = ? and password = ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);			
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
 			ResultSet rst = pstmt.executeQuery();
-			rst.next();
-			resultOfQuery = rst.getInt(1);
-			if(resultOfQuery==1)
-				retStr = username;			
+					
+			if (rst.next())
+				retStr = username; // Login successful			
 		} 
 		catch (SQLException ex) {
 			out.println(ex);
-			exception = ex.toString();
-			resultOfQuery = -30;
 		}
 		finally
 		{
-			if (con != null)
-			try{
-				con.close();
-			}catch(SQLException ex){
-				out.println(ex);
-			}
-		con = null;
+			closeConnection();
 		}	
 		
 		if(retStr != null)
@@ -76,7 +60,7 @@
 		}
 		else
 			session.setAttribute("loginMessage","Could not connect to the system using that username/password.");
-		//+ "resultOfQuery: " + resultOfQuery + "\nException: " + exception
+
 		return retStr;
 	}
 %>
