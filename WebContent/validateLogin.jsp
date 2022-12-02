@@ -35,7 +35,8 @@
 
 
 		// Make the connection
-		String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";		
+		String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";
+		//String url = "jdbc:sqlserver://cosc304_sqlserver:1433;TrustServerCertificate=True";				
 		String uid = "sa";
 		String pw = "304#sa#pw";
 

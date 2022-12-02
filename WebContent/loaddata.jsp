@@ -16,6 +16,7 @@ getConnection();
         
 String fileName = "/usr/local/tomcat/webapps/shop/ddl/orderdb_sql.ddl";
 
+
 try
 {
     // Create statement
