@@ -20,9 +20,12 @@
 // TODO: Print Customer information
 try{
 	getConnection();
-	String sql = String.format("SELECT customerId, firstName,	lastName, email, phonenum, address,	city, state, postalCode, country, userid FROM customer WHERE userid = '%s'",userName);
-	Statement stmt = con.createStatement();
-	ResultSet rst = stmt.executeQuery(sql);
+
+	String sql = String.format("SELECT * FROM customer c WHERE c.userid=?");
+	PreparedStatement pstmt = con.prepareStatement(sql);
+	pstmt.setString(1, userName);
+
+	ResultSet rst = pstmt.executeQuery();
 	rst.next();
 	out.println(String.format("<table class=\"doc-table\"><tbody><tr><th>ID</th><td>%d</td></tr>",rst.getInt(1)));
 	out.println(String.format("<tr><th>First Name</th><td>%s</td></tr>",rst.getString(2)));
