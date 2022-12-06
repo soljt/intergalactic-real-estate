@@ -86,7 +86,7 @@ catch (SQLException ex)
 }
 %>
 
-<ul class="nav_links" align="center"><li><a href="shop.html">Return to Menu</a></li></ul>
+<ul class="nav_links" align="center"><li><a href="index.jsp">Return to Menu</a></li></ul>
 
 </body>
 </html>
