@@ -30,6 +30,7 @@ if (session.getAttribute("loginMessage") != null)
 		</table>
 		<br/>
 		<input class="submit" type="submit" name="Submit2" value="Log In" id="login">
+		<a href="createAccount.jsp">Create Account</a>
 		</form>
 </div>
 
