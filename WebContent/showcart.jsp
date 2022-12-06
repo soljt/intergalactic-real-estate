@@ -8,7 +8,7 @@
 <html>
 <head>
 <title>Your Shopping Cart</title>
-<link rel="stylesheet" href="css/styles2.css">
+<!--link rel="stylesheet" href="css/styles2.css"-->
 </head>
 <body>
 <div class="table-section">
