@@ -12,7 +12,22 @@
 <%
 out.print("<h1>Connecting to database.</h1><br><br>");
 
-getConnection();
+// User id, password, and server information
+String url = "jdbc:sqlserver://cosc304_sqlserver:1433;TrustServerCertificate=True";
+//private String url = "jdbc:sqlserver://cosc304_sqlserver:1433;TrustServerCertificate=True";
+String uid = "sa";
+String pw = "304#sa#pw";
+
+try
+    {	// Load driver class
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    }
+catch (java.lang.ClassNotFoundException e)
+    {
+        throw new SQLException("ClassNotFoundException: " +e);
+    }
+
+con = DriverManager.getConnection(url, uid, pw);
         
 String fileName = "/usr/local/tomcat/webapps/shop/ddl/orderdb_sql.ddl";
 
