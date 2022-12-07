@@ -10,9 +10,14 @@
 <body>
 <%
 String username = (String) session.getAttribute("authenticatedUser"); //Gets the current user's name
+String error = ""; //If there is an error while submitting a review, update this and it will change what is displayed in the ReviewError page
+//nouser = user not logged in
+//prod = user already reviewed that product
+
 
 if(username == null){
-    response.sendRedirect("reviewError.jsp");
+    error="nouser";
+    response.sendRedirect(String.format("reviewError.jsp?id=%s", error));
     return;
 }
 
@@ -57,22 +62,23 @@ try{
 
 
     //Check if the user has done any reviews of the product
-    String verify = "SELECT customerId FROM review WHERE productId=?";
+
+    //Get all of the reviews from that user
+    String verify = "SELECT reviewId FROM review WHERE customerId=? AND productId=?";
     PreparedStatement validate = con.prepareStatement(verify);
-    validate.setString(1, pid);
+    validate.setString(1, userId);
+    validate.setString(2, pid);
     ResultSet rs2 = validate.executeQuery();
 
-    if(rs2.next()){
-        while(rs2.next()){
-            //existing user id
-            String euid = rs2.getString(1);
-            if(euid == userId){
-                response.sendRedirect("index.jsp");
-                return;
-            }
-        }
+    
 
+    //If the user has already done a review on the current product, terminate
+    if(rs2.next()){
+        error = "prod";
+        response.sendRedirect(String.format("reviewError.jsp?id=%s", error));
+        return;
     }
+    
     
 
 
