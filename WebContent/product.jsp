@@ -7,7 +7,7 @@
 <html>
 <head>
 <title>Real Space - Product Information</title>
-<link href="css/styles2.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -83,6 +83,19 @@ while(rs.next()){
     out.println("</div>");
 }
 
+String sql2 = "SELECT reviewRating, reviewComment FROM review WHERE productId=?";
+PreparedStatement ps2 = con.prepareStatement(sql2);
+ps2.setString(1, productId);
+
+ResultSet rs2 = ps2.executeQuery();
+
+while(rs2.next()){
+    String reviewRating = "<h3>Rating (out of 5)"+rs2.getString(1) + "</h3>";
+    String reviewComment = "\"" + rs2.getString(2) + "\"";
+
+    out.println(reviewRating);
+    out.println(reviewComment);
+}
 
 
 
