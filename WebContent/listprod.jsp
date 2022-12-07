@@ -1,32 +1,53 @@
 <%@ page import="java.sql.*,java.net.URLEncoder" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ include file="jdbc.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Real Space</title>
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <!--link rel="stylesheet" href="css/styles2.css"/-->
 <script src="https://kit.fontawesome.com/b0f917e6c7.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<div class="text-center mt-3">
+	<h1>Search for the products you want to buy:</h1>
+	<p class="lead">Leave blank to search for all products</p>
+	<div class="row justify-content-center mb-3">
+		<div class="col-md-4">
+			<form method="get" action="listprod.jsp">
+				<div class="input-group mb-3">
+					<span class="input-group-text"><i class="bi bi-search"></i></span>
+					<input type="text" class="form-control" name="productName">
+				</div>
+				<div class="input-group">
+					<select class="form-select" name="category" id="category">
+						<option selected value=0>Open this select menu</option>
+						<option value=1 name="category">Beverages</option>
+						<option value=2 name="category">Condiments</option>
+						<option value=3 name="category">Dairy</option>
+						<option value=4 name="category">Beverages</option>
+						<option value=5 name="category">Beverages</option>
+						
+					  </select>
+					<button type="submit" class="btn btn-primary">Search</button>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+	
+</div>
 
 
-<h1>Search for the products you want to buy:</h1>
 
-<form align="center" method="get" action="listprod.jsp">
-	<div class="searchbox">
-		<input  type="text" name="productName" size="50" id="textbox">
-	</div>
-	<div class="formdiv">
-		<input class="product_btn" type="submit" value="Search"><input class="product_btn" type="reset" value="Reset">
-	</div>
-	<div class="formdiv">
-		<p style="background-color:inherit; font-size:11pt;">Leave blank to search all products</p>
-	</div>
-	</div>
 
-	<div class="category-search">
+
+
+	<!--div class="category-search">
 		<input type="radio" value=1 name="category"><label>Beverages</label><br>
 		<input type="radio" value=2 name="category"><label>Condiments</label><br>
 		<input type="radio" value=3 name="category"><label>Dairy Products</label><br>
@@ -35,19 +56,15 @@
 		<input type="radio" value=6 name="category"><label>Seafood</label><br>
 		<input type="radio" value=7 name="category"><label>Confections</label><br>
 		<input type="radio" value=8 name="category"><label>Grains/Cereals</label><br>
-	</div>
+	</div-->
 	
 	
 
-</form>
+
 
 
 
 	
-
-
-
-
 
 
 <% // Get product name to search for
@@ -94,7 +111,7 @@ Statement stmt = con.createStatement();)
 	ResultSet rst;
 	if(name != null) {
 		//Case 1
-		if(categoryId != null){
+		if(!categoryId.equals("0")){
 			pstmt = con.prepareStatement(sql1);
 			pstmt.setString(1, "%" + name + "%");
 			pstmt.setString(2, categoryId);
@@ -109,7 +126,7 @@ Statement stmt = con.createStatement();)
 	}
 	else{
 		//Case 3
-		if(categoryId != null){
+		if(!categoryId.equals("0")){
 			pstmt = con.prepareStatement(sql3);
 			pstmt.setString(1, categoryId);
 			rst = pstmt.executeQuery();
@@ -122,9 +139,9 @@ Statement stmt = con.createStatement();)
 	}
 
 	
-	out.println("<table class=\"doc-table\" id=\"product_table\">");
+	out.println("<table class=\"table table-dark table-striped table-hover\">");
 	out.println("<tbody>");		
-	out.println("<tr class=\"prod-row\">");	
+	out.println("<tr>");	
 	out.println("<th></th><th>Product Name</th><th>Price</th>");
 	out.println("</tr>");
 	// For each order in the ResultSet
@@ -139,7 +156,7 @@ Statement stmt = con.createStatement();)
 		double price = rst.getDouble("productPrice");
 		int pid = rst.getInt("productId");
 
-		out.println("<tr class=\"prod-row\">");
+		out.println("<tr>");
 		out.println(String.format("<td><a class=\"product-link\" style=\"font-size:11;\" id=\"add\" href=\"addcart.jsp?id=%d&name=%s&price=%.2f\">Add to cart</a></td>", pid, pname , price));
 		out.println(String.format("<td><a class=\"product-link\" href=\"product.jsp?id=%d\">%s</a></td>",pid, pname));
 		out.println("<td>" + currFormat.format(price) + "</td>");

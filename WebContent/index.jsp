@@ -4,10 +4,16 @@
 <html>
 <head>
 <title>Real Space Hub Main Page</title>
-<link rel="stylesheet" href="css/styles2.css"/>
+<!--link rel="stylesheet" href="css/styles2.css"/-->
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<div style="background-image:url('https://wonderfulengineering.com/wp-content/uploads/2014/06/galaxy-wallpapers-8.jpg'); max-width: 100%; height:auto;">
+
+</div>
+
 <section class="main_section" id="homepage_section">
 
 
