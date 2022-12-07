@@ -117,14 +117,15 @@ try{
         out.println("<br>");
 
     }
+    response.sendRedirect("index.jsp");
 
 }catch(SQLException e){
     out.println(e);
 }
 finally{
-    //response.sendRedirect("index.jsp");
+    
 }
-//Function that adds a review
+
 
 
 
