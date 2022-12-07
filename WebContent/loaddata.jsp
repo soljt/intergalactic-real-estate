@@ -13,8 +13,8 @@
 out.print("<h1>Connecting to database.</h1><br><br>");
 
 // User id, password, and server information
-String url = "jdbc:sqlserver://cosc304_sqlserver:1433;TrustServerCertificate=True";
-//private String url = "jdbc:sqlserver://cosc304_sqlserver:1433;TrustServerCertificate=True";
+String url = "jdbc:sqlserver://cosc304-sqlserver:1433;TrustServerCertificate=True";
+//private String url = "jdbc:sqlserver://cosc304-sqlserver:1433;TrustServerCertificate=True";
 String uid = "sa";
 String pw = "304#sa#pw";
 
