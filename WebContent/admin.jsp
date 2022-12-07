@@ -32,8 +32,17 @@
         ResultSet rst = stmt.executeQuery(sql);
         out.println("<table class=\"doc-table\"><tbody><tr><th>Order Date</th><th>Total Order Amount</th></tr>");
         while(rst.next())
-        {   out.println("<tr><td>"+rst.getInt(2)+"-"+rst.getInt(3)+"-"+rst.getInt(4)+"</td>"+"<td>"+currFormat.format(rst.getDouble(1))+"</td></tr>");}
+        {   out.println("<tr><td text-align=\"center\">"+rst.getInt(2)+"-"+rst.getInt(3)+"-"+rst.getInt(4)+"</td>"+"<td text-align=\"center\">"+currFormat.format(rst.getDouble(1))+"</td></tr>");}
         out.println("</tbody></table>");
+
+        out.println("<h1>All customers:</h1>");
+        sql = "SELECT firstName, lastName from customer";
+        rst = stmt.executeQuery(sql);
+        out.println("<table class=\"doc-table\"><tbody><tr><th>First Name</th><th>Last Name</th></tr>");
+        while(rst.next())
+        {   out.println("<tr><td text-align=\"center\">"+rst.getString(1)+"</td>"+"<td text-align=\"center\">"+rst.getString(2)+"</td></tr>");}
+        out.println("</tbody></table>");
+
     }   catch(SQLException ex){
         out.println(ex);
     }finally{
