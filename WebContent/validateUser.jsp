@@ -115,7 +115,7 @@ int validateUser(JspWriter out,HttpServletRequest request, HttpSession session) 
 			Statement stmt = con.createStatement(); 
 			stmt.execute("USE orders");
 
-			String sql = "INSERT INTO customer(firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO customer(firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);		
 
 			pstmt.setString(1, firstName);
@@ -128,13 +128,14 @@ int validateUser(JspWriter out,HttpServletRequest request, HttpSession session) 
             pstmt.setString(8, postalCode);
             pstmt.setString(9, country);
             pstmt.setString(10, userID);
-
+            pstmt.setString(11, password);
             rowCount = pstmt.executeUpdate();
 
         }
 
         catch (SQLException ex) {
-            out.println(ex);
+            session.setAttribute("errorMessage",ex);
+            return 0;
         }
 
         finally{

@@ -37,11 +37,11 @@
         out.println("</tbody></table>");
 
         out.println("<h1>All customers:</h1>");
-        sql = "SELECT firstName, lastName from customer";
+        sql = "SELECT firstName, lastName, userId from customer";
         rst = stmt.executeQuery(sql);
-        out.println("<table class=\"table table-bordered table-secondary table-striped\"><tbody><tr><th>First Name</th><th>Last Name</th></tr>");
+        out.println("<table class=\"table table-bordered table-secondary table-striped\"><tbody><tr><th>First Name</th><th>Last Name</th><th>User ID</th></tr>");
         while(rst.next())
-        {   out.println("<tr><td text-align=\"center\">"+rst.getString(1)+"</td>"+"<td text-align=\"center\">"+rst.getString(2)+"</td></tr>");}
+        {   out.println("<tr><td text-align=\"center\">"+rst.getString(1)+"</td>"+"<td text-align=\"center\">"+rst.getString(2)+"<td text-align=\"center\">"+rst.getString(3)+"</td></tr>");}
         out.println("</tbody></table>");
     }   catch(SQLException ex){
         out.println(ex);
