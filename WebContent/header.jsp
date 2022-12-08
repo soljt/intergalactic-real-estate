@@ -27,6 +27,9 @@
                 <a class="nav-link" href="logout.jsp">Logout</a>
               </li>
 
+          
+              
+
               <%
               getConnection();
 
@@ -39,9 +42,9 @@
                 ResultSet resultset = puser.executeQuery();
                 resultset.next();
                 String fname = resultset.getString(1);
-                out.println("<div class=\"nav-item\">");
-                    out.println("<span class=\"navbar-brand p\">"+ "Logged in as: " + fname + "</span>");
-                out.println("</div>");
+                out.println("<li class=\"nav-item\">");
+                    out.println("<a class=\"nav-link \">"+ "Logged in as: " + fname + "</a>");
+                out.println("</li>");
               }
               
 
