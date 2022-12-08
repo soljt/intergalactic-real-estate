@@ -105,6 +105,9 @@
     while(rst.next()) {
         out.println(String.format("<h3>Customer Id: %d First Name: %d Last Name: %d email: %d Phone Number: %d Address: %d User Id: %d</h3>", customerId, firstName, lastName, email, phonenum, address, userid));
     }
+
+    //Restores Database
+    RESTORE DATABASE orders FROM DISK = './directory'
     %>
 </div>
 <form align="center" method="get" action="admin.jsp">
