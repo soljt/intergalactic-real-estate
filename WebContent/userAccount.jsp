@@ -1,26 +1,76 @@
-<%@ page import="java.sql.*,java.net.URLEncoder" %>
-<%@ page import="java.text.NumberFormat" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Real Space</title>
-<link rel="stylesheet" href="css/styles2.css"/>
-<script src="https://kit.fontawesome.com/b0f917e6c7.js" crossorigin="anonymous"></script>
+<title>User Account</title>
+<link rel="stylesheet" href="css/styles2.css">
 </head>
 <body>
 
-<h1>Enter user account information:</h1>
+<div class="title-container">
+	<h1 id="title" >User Account</h1>
 
-<form align="center" method="get" action="userAccount.jsp">
-	<div class="formdiv">
-		<input  type="text" name="productName" size="50" id="textbox">
-	</div>
-	<div class="formdiv">
-		<input class="product_btn" type="submit" value="Search"><input class="product_btn" type="reset" value="Reset">
-	</div>
-	<div class="formdiv">
-		<p style="background-color:inherit; font-size:11pt;">Leave blank to search all products</p>
+<%
+// Print prior error login message if present
 
-	</div>
-</form>
+if (session.getAttribute("errorMessage") != null)
+	out.println("<p>"+session.getAttribute("errorMessage").toString()+"</p>");
+%>
+</div>
+
+<div class="form-container">
+	<form name="MyForm" method=post action="validateUser.jsp">
+		<table>
+		<tr>
+			<td><div ><p>First Name:</p></div></td>
+			<td><input type="text" name="firstName" size=10 maxlength=20></td>
+		</tr>
+		<tr>
+			<td><div><p>Last Name:</p></div></td>
+			<td><input type="text" name="lastName" size=10 maxlength="20"></td>
+		</tr>
+		<tr>
+			<td><div ><p>Email:</p></div></td>
+			<td><input type="text" name="email" size=10 maxlength=50></td>
+		</tr>
+		<tr>
+			<td><div ><p>Phone:</p></div></td>
+			<td><input type="text" name="phone" size=10 maxlength=10></td>
+		</tr>
+		<tr>
+			<td><div ><p>Address:</p></div></td>
+			<td><input type="text" name="address" size=10 maxlength=30></td>
+		</tr>
+		<tr>
+			<td><div ><p>City:</p></div></td>
+			<td><input type="text" name="city" size=10 maxlength=20></td>
+		</tr>
+		<tr>
+			<td><div ><p>State:</p></div></td>
+			<td><input type="text" name="state" size=10 maxlength=2></td>
+		</tr>
+		<tr>
+			<td><div ><p>Postal Code:</p></div></td>
+			<td><input type="text" name="postalCode" size=10 maxlength=6></td>
+		</tr>
+		<tr>
+			<td><div ><p>Country:</p></div></td>
+			<td><input type="text" name="country" size=10 maxlength=20></td>
+		</tr>
+		<tr>
+			<td><div ><p>User ID:</p></div></td>
+			<td><input type="text" name="userID" size=10 maxlength=30></td>
+		</tr>
+		<tr>
+			<td><div ><p>Password:</p></div></td>
+			<td><input type="text" name="password" size=10 maxlength=30></td>
+		</tr>
+		</table>
+		<br/>
+		<input class="submit" type="submit" name="Submit2" value="Save" id="save">
+		</form>
+</div>
+
+
+</body>
+</html>
+
