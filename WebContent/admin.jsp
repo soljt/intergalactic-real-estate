@@ -43,7 +43,6 @@
         while(rst.next())
         {   out.println("<tr><td text-align=\"center\">"+rst.getString(1)+"</td>"+"<td text-align=\"center\">"+rst.getString(2)+"</td></tr>");}
         out.println("</tbody></table>");
-
     }   catch(SQLException ex){
         out.println(ex);
     }finally{

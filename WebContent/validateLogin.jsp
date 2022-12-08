@@ -25,10 +25,14 @@
 		String password = request.getParameter("password");
 		String retStr = null;
 
-		if(username == null || password == null)
-				return null;
-		if((username.length() == 0) || (password.length() == 0))
-				return null;
+		if(username.isEmpty() || password == null){
+			session.setAttribute("loginMessage","your username can't be empty lol");
+			return null;
+		}
+		if((username.length() == 0) || (password.length() == 0)){
+			session.setAttribute("loginMessage","your username or password be empty lol");
+			return null;
+		}
 
 		try 
 		{
