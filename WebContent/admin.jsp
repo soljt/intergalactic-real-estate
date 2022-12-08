@@ -61,23 +61,22 @@
     
     //Query to update a product
     String update_prod = "UPDATE product SET productName="+productName+", productPrice="+productPrice+", productDesc="+productDesc+"categoryId="+categoryId+" WHERE productId="+productId;
-    preparedStatement pstmt_up = con.prepareStatement(update_prod);
+    PreparedStatement pstmt_up = con.prepareStatement(update_prod);
 
     //Deletes product from on product id entered by admin
-    String productId = request.getParameter("productId");
     String delete_prod = "DELETE FROM product WHERE productId = ?";
     PreparedStatement pstmt_del = con.prepareStatement(delete_prod);
 
     
     //Get parameters for customer update from form
-    String customerId = request.getParameter("customerId);
+    String customerId = request.getParameter("customerId");
     String email = request.getParameter("email");
     String phonenum = request.getParameter("phonenum");
-    String userid = request.getParameter("userid");
+    String uid = request.getParameter("userid");
     String password = request.getParameter("password");
 
     //Query to update customer
-    String update_customer = "UPDATE customer SET email="+email+", phonenum="+phonenum+", userid="+userid+", password="+password+" WHERE customerId="+customerId;
+    String update_customer = "UPDATE customer SET email="+email+", phonenum="+phonenum+", userid="+uid+", password="+password+" WHERE customerId="+customerId;
     PreparedStatement pstmt_cust = con.prepareStatement(update_customer);
 
 
@@ -92,22 +91,23 @@
     //Get parameters for shipment update from form
     String shipmentDate = request.getParameter("shipmentDate");
     String shipmentDesc = request.getParameter("shipmentDesc");
-    String warehouseId = request.getParameter("warehouseId");
     String shipmentId = request.getParameter("shipmentId");
 
     //Query to update shipment (Order is shipped)
-    String ship_order = "UPDATE shipment SET shipmentDate="+shipmentDate+", shipmentDesc="+shipmentDesc+", warehouseId="+warehouseId" WHERE shipmentId="+shipmentId;
+    String ship_order = "UPDATE shipment SET shipmentDate="+shipmentDate+", shipmentDesc="+shipmentDesc+", warehouseId="+warehouseId+" WHERE shipmentId="+shipmentId;
     PreparedStatement pstmt_ship = con.prepareStatement(ship_order);
 
     //Lists customers
+    Statement stmt = con.createStatement();
     String list_customer = "SELECT customerId, firstName, lastName, email, phonenum, address, userid FROM customer";
     ResultSet rst = stmt.executeQuery(list_customer);
     while(rst.next()) {
-        out.println(String.format("<h3>Customer Id: %d First Name: %d Last Name: %d email: %d Phone Number: %d Address: %d User Id: %d</h3>", customerId, firstName, lastName, email, phonenum, address, userid));
+        out.println(String.format("<h3>Customer Id: %d First Name: %d Last Name: %d email: %d Phone Number: %d Address: %d User Id: %d</h3>", rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6), rst.getString(7)));
     }
 
     //Restores Database
-    RESTORE DATABASE orders FROM DISK = './directory'
+    String restore = "RESTORE DATABASE orders FROM DISK = './WebContent/ddl/orderdb_sql.ddl'";
+    PreparedStatement pstmt_rest = con.prepareStatement(restore);
     %>
 </div>
 <form align="center" method="get" action="admin.jsp">
