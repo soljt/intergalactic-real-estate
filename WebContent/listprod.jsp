@@ -41,6 +41,9 @@
 	</div>
 	
 </div>
+<div class="container-sm">
+
+
 
 
 
@@ -96,16 +99,16 @@ Statement stmt = con.createStatement();)
 	// Write query to retrieve all order summary records
 
 	//Case where both category and name are given
-	String sql1 = "SELECT productId, productName, productPrice FROM product WHERE productName LIKE ? AND categoryId=?";
+	String sql1 = "SELECT productId, productName,  productImageURL, productDesc, productPrice FROM product WHERE productName LIKE ? AND categoryId=?";
 
 	//Case where only product name is given
-	String sql2 = "SELECT productId, productName, productPrice FROM product WHERE productName LIKE ?";
+	String sql2 = "SELECT productId, productName,  productImageURL, productDesc, productPrice FROM product WHERE productName LIKE ?";
 
 	//Case where only category is given
-	String sql3 = "SELECT productId, productName, productPrice FROM product WHERE categoryId=?";
+	String sql3 = "SELECT productId, productName,  productImageURL, productDesc, productPrice  FROM product WHERE categoryId=?";
 
 	//Case where neither category or product name is given
-	String sql4 = "SELECT productId, productName, productPrice FROM product";
+	String sql4 = "SELECT productId, productName,  productImageURL, productDesc, productPrice FROM product";
 
 	PreparedStatement pstmt;
 	ResultSet rst;
@@ -126,7 +129,7 @@ Statement stmt = con.createStatement();)
 	}
 	else{
 		//Case 3
-		if(!categoryId.equals("0")){
+		if(categoryId != null){
 			pstmt = con.prepareStatement(sql3);
 			pstmt.setString(1, categoryId);
 			rst = pstmt.executeQuery();
@@ -139,11 +142,14 @@ Statement stmt = con.createStatement();)
 	}
 
 	
-	out.println("<table class=\"table table-dark table-striped table-hover\">");
-	out.println("<tbody>");		
+	out.println("<table class=\"table table-secondary table-striped table-hover table-sm align-middle justify-content-center\">");
+		out.println("<thead>");
+		
 	out.println("<tr>");	
-	out.println("<th></th><th>Product Name</th><th>Price</th>");
+	out.println("<th scope=\"col\"></th><th scope=\"col\">Product Name</th><th scope=\"col\">Image</th><th scope=\"col\">Description</th><th scope=\"col\">Price</th>");
 	out.println("</tr>");
+	out.println("</thead>");
+	out.println("<tbody>");	
 	// For each order in the ResultSet
 	while (rst.next())
 	{	
@@ -155,10 +161,14 @@ Statement stmt = con.createStatement();)
 		String pname = rst.getString("productName");
 		double price = rst.getDouble("productPrice");
 		int pid = rst.getInt("productId");
+		String imurl = rst.getString("productImageURL");
+		String desc = rst.getString("productDesc");
 
 		out.println("<tr>");
-		out.println(String.format("<td><a class=\"product-link\" style=\"font-size:11;\" id=\"add\" href=\"addcart.jsp?id=%d&name=%s&price=%.2f\">Add to cart</a></td>", pid, pname , price));
+		out.println(String.format("<td><a class=\"product-link\" id=\"add\" href=\"addcart.jsp?id=%d&name=%s&price=%.2f\">Add to cart</a></td>", pid, pname , price));
 		out.println(String.format("<td><a class=\"product-link\" href=\"product.jsp?id=%d\">%s</a></td>",pid, pname));
+		out.println(String.format("<td>" + "<img class=\"img-thumbnail\" src=\"%s\">" + "</td>", imurl));
+		out.println(String.format("<td>%s</td>",desc));
 		out.println("<td>" + currFormat.format(price) + "</td>");
 		out.println("</tr>");
 	}
@@ -173,7 +183,7 @@ Statement stmt = con.createStatement();)
 // out.println(currFormat.format(5.0);	// Prints $5.00
 %>
 
-
+</div>
 
 
 

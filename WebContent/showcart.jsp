@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
-<div class="table-section">
+<div class="container-sm mt-3 mb-3">
 	<%
 	// Get the current list of products
 	@SuppressWarnings({"unchecked"})
@@ -28,7 +28,7 @@
 		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 	
 		out.println("<h1 align=\"center\">Your Shopping Cart</h1>");
-		out.print("<table class=\"doc-table\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+		out.print("<table class=\"table table-secondary table-hover align-middle table-sm justify-content-center\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 		out.println("<th>Price</th><th>Subtotal</th></tr>");
 	
 		double total =0;
@@ -76,12 +76,12 @@
 		out.println("<tr><td colspan=\"4\" align=\"right\" id=\"order_total\"><b id=\"order_total\">Order Total</b></td>"
 				+"<td align=\"right\" id=\"order_total\">"+currFormat.format(total)+"</td></tr>");
 		out.println("</table>");
-		out.println("<ul class=\"nav_links\" align=\"center\">");
-		out.println("<li><a href=\"checkout.jsp\">Check Out</a></li>");
+	
 	}
 	%>
-	<li><a href="listprod.jsp">Continue Shopping</a></li>
-<li><a href="index.jsp">Home</a></li>
+<a class="btn btn-primary" href="checkout.jsp" role="button">Check Out</a>
+<a class="btn btn-secondary" href="index.jsp" role="button">Home</a>
+<a class="btn btn-dark" href="listprod.jsp" role="button">Continue Shopping</a>
 </div>
 
 

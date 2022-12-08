@@ -11,170 +11,182 @@
 <html>
 <head>
 <title>YOUR NAME Grocery Order Processing</title>
-<link rel="stylesheet" href="css/styles2.css">
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
 </head>
 <body>
-<div class="table-section">
-	<% 
-	// Get customer id
-	String custId = request.getParameter("customerId");
-	@SuppressWarnings({"unchecked"})
-	HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
-	
-	// Determine if there are products in the shopping cart
-	// If either are not true, display an error message
-	if (productList == null || productList.isEmpty()) {
-		out.println("<h1>There is nothing in your cart. Please go back and add something</h1>"); 
-		return;
-	}
-	
-	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-	// Determine if valid customer id was entered
-	String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";		
-	String uid = "sa";
-	String pw = "304#sa#pw";
-	
-	try ( Connection con = DriverManager.getConnection(url, uid, pw);
-	Statement stmt = con.createStatement();) 
-	{	
-	
-		// Write query to see if customer is in DB
-		String sql = "SELECT COUNT(1) FROM customer WHERE customerId = ?";
-		PreparedStatement pstmt = con.prepareStatement(sql);
-		ResultSet rst;
-		if(custId != null && !custId.isEmpty()) {
-			pstmt.setInt(1, Integer.parseInt(custId));
-			rst = pstmt.executeQuery();
-			rst.next();
-			if(rst.getInt(1)!=1) {
-				out.println("<h1>The ID you have entered is not registered with a customer. Please go back and try again</h1>"); 
-				return;
-			}
-		}
-		else {
-			out.println("<h1>You did not enter an ID. Please go back and try again</h1>"); 
-			return;
-		}
-	
-		// Save order information to database
-		sql = "INSERT INTO ordersummary(customerId, orderDate) VALUES (?,?)";
-		
-		pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);	
-		
-		pstmt.setInt(1, Integer.parseInt(custId));
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		Date date = new Date();  
-		
-		pstmt.setString(2, formatter.format(date));
-	
-		int rowcount = pstmt.executeUpdate();
-	
-		ResultSet keys = pstmt.getGeneratedKeys();
-		keys.next();
-		int orderId = keys.getInt(1);
-	
-		// Insert each item into OrderProduct table using OrderId from previous INSERT
-		double total = 0;
-		sql = "INSERT INTO orderproduct(orderId,productId,quantity,price) VALUES (?,?,?,?)";
-		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
-		while (iterator.hasNext()) 
-		{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
-			ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-			if (product.size() < 4)
-			{
-				out.println("Expected product with four entries. Got: "+product);
-				continue;
-			}
-			
-			Object price = product.get(2);
-			Object itemqty = product.get(3);
-			double pr = 0;
-			int qty = 0;
-			
-			try
-			{
-				pr = Double.parseDouble(price.toString());
-			}
-			catch (Exception e)
-			{
-				out.println("Invalid price for product: "+product.get(0)+" price: "+price);
-			}
-			try
-			{
-				qty = Integer.parseInt(itemqty.toString());
-			}
-			catch (Exception e)
-			{
-				out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
-			}		
-	
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,orderId);
-			pstmt.setInt(2,Integer.parseInt(product.get(0).toString()));
-			pstmt.setInt(3,qty);
-			pstmt.setDouble(4,pr);
-			rowcount = pstmt.executeUpdate();
-			total = total +pr*qty;
-		}
-	
-		// Update total amount for order record
-		sql = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setDouble(1,total);
-		pstmt.setInt(2,orderId);
-		rowcount = pstmt.executeUpdate();
-	
-	
-		// Print out order summary
-		out.println("<h1>Your Order Summary</h1>");
-		out.print("<table class=\"doc-table\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-		out.println("<th>Price</th><th>Subtotal</th></tr>");
-		iterator = productList.entrySet().iterator();
-		while (iterator.hasNext())
-		{ 
-			Map.Entry<String, ArrayList<Object>> entry = iterator.next();
-			ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-			String productId = (String) product.get(0);
-			String price = (String) product.get(2);
-			double pr = Double.parseDouble(price);
-			int qty = ( (Integer)product.get(3)).intValue();
-	
-			out.print("<tr><td>"+productId+"</td>");
-			out.print("<td>"+product.get(1)+"</td>");
-			out.print("<td align=\"center\">"+product.get(3)+"</td>");
-			
-			out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-			out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
-			out.println("</tr>");
-	
-			
-		}
-		out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
-		out.println("</table>");
-	
-		out.println("<h2>Order Complete! Totally gonna ship you this order</h2>");
-		out.println(String.format("<h2>Reference Number: %d</h2>",orderId));
-		out.println(String.format("<h2>Shipping to customer number: %s</h2>", custId));
-		out.println("<h2><a href = \"index.jsp\">Go Home</a></h2>");
-	
-		// Clear cart if order placed successfully
-		session.invalidate();
-	}
-	catch (SQLException ex)
-	{
-		out.println("SQLException: " + ex);
-	}
-	catch (NumberFormatException e)
-	{
-		out.println("<h1>The ID you entered is not an integer. Please go back and try again</h1>");
-	}
-	
-	
-	
-	
-	%>
+	<div class="container-lg">
+
+
+	<div class="row justify-content-center">
+		<div class="col-md-4">
+			<div>
+				<% 
+				// Get customer id
+				String custId = request.getParameter("customerId");
+				@SuppressWarnings({"unchecked"})
+				HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+				
+				// Determine if there are products in the shopping cart
+				// If either are not true, display an error message
+				if (productList == null || productList.isEmpty()) {
+					out.println("<div class=\"alert alert-danger\" role=\"alert\">There is nothing in your cart. Please go back and add something</div>");
+					return;
+				}
+				
+				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+				// Determine if valid customer id was entered
+				String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";		
+				String uid = "sa";
+				String pw = "304#sa#pw";
+				
+				try ( Connection con = DriverManager.getConnection(url, uid, pw);
+				Statement stmt = con.createStatement();) 
+				{	
+				
+					// Write query to see if customer is in DB
+					String sql = "SELECT COUNT(1) FROM customer WHERE customerId = ?";
+					PreparedStatement pstmt = con.prepareStatement(sql);
+					ResultSet rst;
+					if(custId != null && !custId.isEmpty()) {
+						pstmt.setInt(1, Integer.parseInt(custId));
+						rst = pstmt.executeQuery();
+						rst.next();
+						if(rst.getInt(1)!=1) {
+							out.println("<h1>The ID you have entered is not registered with a customer. Please go back and try again</h1>"); 
+							return;
+						}
+					}
+					else {
+						out.println("<h1>You did not enter an ID. Please go back and try again</h1>"); 
+						return;
+					}
+				
+					// Save order information to database
+					sql = "INSERT INTO ordersummary(customerId, orderDate) VALUES (?,?)";
+					
+					pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);	
+					
+					pstmt.setInt(1, Integer.parseInt(custId));
+					
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+					Date date = new Date();  
+					
+					pstmt.setString(2, formatter.format(date));
+				
+					int rowcount = pstmt.executeUpdate();
+				
+					ResultSet keys = pstmt.getGeneratedKeys();
+					keys.next();
+					int orderId = keys.getInt(1);
+				
+					// Insert each item into OrderProduct table using OrderId from previous INSERT
+					double total = 0;
+					sql = "INSERT INTO orderproduct(orderId,productId,quantity,price) VALUES (?,?,?,?)";
+					Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+					while (iterator.hasNext()) 
+					{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+						ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
+						if (product.size() < 4)
+						{
+							out.println("Expected product with four entries. Got: "+product);
+							continue;
+						}
+						
+						Object price = product.get(2);
+						Object itemqty = product.get(3);
+						double pr = 0;
+						int qty = 0;
+						
+						try
+						{
+							pr = Double.parseDouble(price.toString());
+						}
+						catch (Exception e)
+						{
+							out.println("Invalid price for product: "+product.get(0)+" price: "+price);
+						}
+						try
+						{
+							qty = Integer.parseInt(itemqty.toString());
+						}
+						catch (Exception e)
+						{
+							out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
+						}		
+				
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1,orderId);
+						pstmt.setInt(2,Integer.parseInt(product.get(0).toString()));
+						pstmt.setInt(3,qty);
+						pstmt.setDouble(4,pr);
+						rowcount = pstmt.executeUpdate();
+						total = total +pr*qty;
+					}
+				
+					// Update total amount for order record
+					sql = "UPDATE ordersummary SET totalAmount = ? WHERE orderId = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setDouble(1,total);
+					pstmt.setInt(2,orderId);
+					rowcount = pstmt.executeUpdate();
+				
+				
+					// Print out order summary
+					out.println("<h1 class=\"text-center\">Your Order Summary</h1>");
+					out.print("<table class=\"table table-secondary table-hover table-striped table-bordered\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+					out.println("<th>Price</th><th>Subtotal</th></tr>");
+					iterator = productList.entrySet().iterator();
+					while (iterator.hasNext())
+					{ 
+						Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+						ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
+						String productId = (String) product.get(0);
+						String price = (String) product.get(2);
+						double pr = Double.parseDouble(price);
+						int qty = ( (Integer)product.get(3)).intValue();
+				
+						out.print("<tr><td>"+productId+"</td>");
+						out.print("<td>"+product.get(1)+"</td>");
+						out.print("<td align=\"center\">"+product.get(3)+"</td>");
+						
+						out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
+						out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
+						out.println("</tr>");
+				
+						
+					}
+					out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
+					out.println("</table>");
+				
+					out.println("<p>Order Complete! Totally gonna ship you this order</p>");
+					out.println(String.format("<p>Reference Number: %d</p>",orderId));
+					out.println(String.format("<p>Shipping to customer number: %s</p>", custId));
+					out.println("<a class=\"btn btn-info\" href=\"index.jsp\" role=\"button\">Back to Homepage</a>");
+				
+					// Clear cart if order placed successfully
+					session.invalidate();
+				}
+				catch (SQLException ex)
+				{
+					out.println("SQLException: " + ex);
+				}
+				catch (NumberFormatException e)
+				{
+					out.println("<div class=\"alert alert-danger\" role=\"alert\">The ID you entered is not an integer. Please go back and try again</div>");
+				}
+				
+				
+				
+				
+				%>
+			</div>
+		</div>
+	</div>
 </div>
+
+
 
 </BODY>
 </HTML>
