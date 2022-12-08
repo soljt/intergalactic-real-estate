@@ -143,14 +143,12 @@ CREATE TABLE review (
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO category(categoryName) VALUES ('Beverages');
-INSERT INTO category(categoryName) VALUES ('Condiments');
-INSERT INTO category(categoryName) VALUES ('Dairy Products');
-INSERT INTO category(categoryName) VALUES ('Produce');
-INSERT INTO category(categoryName) VALUES ('Meat/Poultry');
-INSERT INTO category(categoryName) VALUES ('Seafood');
-INSERT INTO category(categoryName) VALUES ('Confections');
-INSERT INTO category(categoryName) VALUES ('Grains/Cereals');
+INSERT INTO category(categoryName) VALUES ('Space');
+INSERT INTO category(categoryName) VALUES ('Galactic');
+INSERT INTO category(categoryName) VALUES ('Planetary');
+INSERT INTO category(categoryName) VALUES ('Andromeda');
+INSERT INTO category(categoryName) VALUES ('Bruh');
+
 
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Space House', 1, 'This place is rad!',18.00);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Galactic Plot',2,'Beautiful view of...the galaxy?',19.00);
