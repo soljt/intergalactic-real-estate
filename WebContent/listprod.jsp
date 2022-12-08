@@ -25,12 +25,12 @@
 				</div>
 				<div class="input-group">
 					<select class="form-select" name="category" id="category">
-						<option selected value=0>Open this select menu</option>
-						<option value=1 name="category">Beverages</option>
-						<option value=2 name="category">Condiments</option>
-						<option value=3 name="category">Dairy</option>
-						<option value=4 name="category">Beverages</option>
-						<option value=5 name="category">Beverages</option>
+						<option selected value=0>Select Category</option>
+						<option value=1 name="category">Space</option>
+						<option value=2 name="category">Galactic</option>
+						<option value=3 name="category">Planetary</option>
+						<option value=4 name="category">Andromeda</option>
+						<option value=5 name="category">Bruh</option>
 						
 					  </select>
 					<button type="submit" class="btn btn-primary">Search</button>
