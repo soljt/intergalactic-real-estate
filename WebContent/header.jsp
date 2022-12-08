@@ -24,6 +24,9 @@
                 <a class="nav-link" href="admin.jsp">Administrator Portal</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="warehouse.jsp">Warehouse Inventory</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="logout.jsp">Logout</a>
               </li>
 
