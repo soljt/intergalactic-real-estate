@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
-
+	<%@ include file="jdbc.jsp" %>
+	<%@ include file="header.jsp" %>
 <h1 align="center">Order List</h1>
 
 <div class="row justify-content-center">
