@@ -10,8 +10,9 @@
 
 <html>
 <head>
-<title>YOUR NAME Grocery Shipment Processing</title>
-<link rel="stylesheet" href="css/styles2.css">
+<title>Real Space Hub Shipment Processing</title>
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
         
@@ -79,7 +80,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);)
 			out.println(String.format("<h3>Ordered product: %d Qty: %d Previous inventory: %d New inventory: %d</h3>", orderedProductId, orderedQuantity, warehouseQuantity, newQuantity));
 		} 
 		else{
-			out.println(String.format("<h1>Insufficient inventory for product ID: %d. NOT shipping you this lol</h1>", orderedProductId));
+			out.println(String.format("<h1>Insufficient inventory for product ID: %d. NOT shipping you this</h1>", orderedProductId));
 			success = false;
 			break;
 		}
@@ -89,7 +90,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);)
 	// TODO: If any item does not have sufficient inventory, cancel transaction and rollback. Otherwise, update inventory for each item.
 	if(success) {
 		con.commit();
-		out.println("<h1>Order shipment success! will be shipped soon lol</h1>");
+		out.println("<h1>Order shipment success! will be shipped soon</h1>");
 	}
 	else
 		con.rollback();
@@ -105,7 +106,7 @@ catch(SQLException ex)
 %>                       				
 
 
-<h3><a href="index.jsp">Back to Main Page</a></h3>
+<h3><a class="btn btn-info" href="index.jsp" role="button">Back to Main Page</a></h3>
 
 </body>
 </html>
