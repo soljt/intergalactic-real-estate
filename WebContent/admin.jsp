@@ -2,7 +2,8 @@
 <html>
 <head>
 <title>Administrator Page</title>
-<link rel="stylesheet" href="css/styles2.css">
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
@@ -79,15 +80,22 @@
         String phonenum = request.getParameter("phonenum");
         String uid = request.getParameter("userid");
         String password = request.getParameter("password");
-    
+          
+        /* the logic below here is bad. We shouldn't add a customer or warehouse each time that the request.getParameter returns null.
 
-        if (customerId != "NULL"){
+          I leave it with you my brother 
+          
+          Good luck
+
+        */
+
+        if (customerId != null){
             //Query to update customer
-            String update_customer = "UPDATE customer SET email="+email+"phonenum="+phonenum+"userid="+uid+"password="+password+"WHERE customerId="+customerId;
+            String update_customer = "UPDATE customer SET email="+email+", phonenum="+phonenum+" userid="+uid+", password="+password+" WHERE customerId="+customerId;
             stmt.executeUpdate(update_customer);
         } else {
             //Query to add customer
-            String add_customer = "INSERT INTO customer(firstName, lastName, email, phonenum, userid, password) VALUES (firstName, lastName, email, phonenum, uid, password)";
+            String add_customer = "INSERT INTO customer(firstName, lastName, email, phonenum, userid, password) VALUES ('firstName', 'lastName', 'email', 'phonenum', 'uid', 'password')";
             stmt.executeUpdate(add_customer);
         }
         
@@ -95,13 +103,13 @@
         String warehouseId = request.getParameter("warehouseId");
         String warehouseName = request.getParameter("warehouseName");
     
-        if(warehouseId != "NULL"){
+        if(warehouseId != null){
             //Query to update warehouse
             String update_warehouse = "UPDATE warehouse SET warehouseName="+warehouseName+" WHERE warehouseId="+warehouseId;
             stmt.executeUpdate(update_warehouse);
         } else {
             //Query to add warehouse
-            String add_customer = "INSERT INTO warehouse(warehouseName) VALUES (warehouseName)";
+            String add_customer = "INSERT INTO warehouse(warehouseName) VALUES ('warehouseName')";
             stmt.executeUpdate(add_customer);
         }
         
@@ -112,9 +120,9 @@
         String shipmentId = request.getParameter("shipmentId");
     
         //Query to update shipment (ship order)
-        String ship_order = "UPDATE shipment SET shipmentDate="+shipmentDate+"shipmentDesc="+shipmentDesc+"warehouseId="+warehouseId+" WHERE shipmentId="+shipmentId;
+        String ship_order = "UPDATE shipment SET shipmentDate="+shipmentDate+", shipmentDesc="+shipmentDesc+", warehouseId="+warehouseId+" WHERE shipmentId="+shipmentId;
         PreparedStatement pstmt_ship = con.prepareStatement(ship_order);
-        pstmt_ship.executeQuery();
+        pstmt_ship.executeUpdate();
     
        
     
@@ -122,7 +130,7 @@
         //String restore = "RESTORE DATABASE orders FROM DISK = './WebContent/ddl/orderdb_sql.ddl'";
         //PreparedStatement pstmt_rest = con.prepareStatement(restore);
     }   catch(SQLException ex){
-        out.println(ex);
+        out.println(ex.toString());
     }finally{
         closeConnection();
     }
