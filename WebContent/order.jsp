@@ -48,13 +48,17 @@
 					String username = request.getParameter("username");
 					String password = request.getParameter("password");
 					String retStr = null;
-			
+					String signedInAs = (String)session.getAttribute("authenticatedUser");
 					if(username == null || password == null){
-						out.println("<h1>Your username or password are empty. Please go back and try again.</h1>");
+						out.println("<div class=\"alert alert-danger\" role=\"alert\">Your username or password are empty. Please go back and try again.</div>");
 						return;
 					}
 					if(username.isEmpty() || password.isEmpty()){
-						out.println("<h1>Your username or password are empty. Please go back and try again.</h1>");
+						out.println("<div class=\"alert alert-danger\" role=\"alert\">Your username or password are empty. Please go back and try again.</div>");
+						return;
+					}
+					if(signedInAs != null && !signedInAs.equals(username)){
+						out.println(String.format("<div class=\"alert alert-danger\" role=\"alert\">Cannot checkout as %s while signed in as %s. Please log out and try again.</div>",username,signedInAs));
 						return;
 					}
 
@@ -66,7 +70,7 @@
 					ResultSet rst = pstmt.executeQuery();
 							
 					if (!rst.next()){
-						out.println("<h1>That username/password combination is invalid. Please go back and try again.</h1>");
+						out.println("<div class=\"alert alert-danger\" role=\"alert\">That username/password combination is invalid. Please go back and try again.</div>");
 						return;
 					}
 					
