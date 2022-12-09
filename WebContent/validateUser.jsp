@@ -107,7 +107,7 @@ int validateUser(JspWriter out,HttpServletRequest request, HttpSession session) 
             return 0;
         }
 		
-
+        phone = phone.substring(0,3) + "-" + phone.substring(3,6) + "-" + phone.substring(6);
 		try 
 		{
 			getConnection();
@@ -117,15 +117,15 @@ int validateUser(JspWriter out,HttpServletRequest request, HttpSession session) 
 			String sql = "INSERT INTO customer(firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);		
 
-			pstmt.setString(1, firstName);
-			pstmt.setString(2, lastName);
+			pstmt.setString(1, titleCase(firstName));
+			pstmt.setString(2, titleCase(lastName));
             pstmt.setString(3, email);
             pstmt.setString(4, phone);
-            pstmt.setString(5, address);
-            pstmt.setString(6, city);
-            pstmt.setString(7, state);
-            pstmt.setString(8, postalCode);
-            pstmt.setString(9, country);
+            pstmt.setString(5, titleCase(address));
+            pstmt.setString(6, titleCase(city));
+            pstmt.setString(7, state.toUpperCase());
+            pstmt.setString(8, postalCode.toUpperCase());
+            pstmt.setString(9, titleCase(country));
             pstmt.setString(10, userID);
             pstmt.setString(11, password);
             rowCount = pstmt.executeUpdate();
@@ -152,3 +152,27 @@ int validateUser(JspWriter out,HttpServletRequest request, HttpSession session) 
     }
 %>
 
+<%!
+String titleCase (String text){
+    if (text == null || text.isEmpty()) {
+        return text;
+    }
+
+    StringBuilder converted = new StringBuilder();
+
+    boolean convertNext = true;
+    for (char ch : text.toCharArray()) {
+        if (Character.isSpaceChar(ch)) {
+            convertNext = true;
+        } else if (convertNext) {
+            ch = Character.toTitleCase(ch);
+            convertNext = false;
+        } else {
+            ch = Character.toLowerCase(ch);
+        }
+        converted.append(ch);
+    }
+
+    return converted.toString();
+}
+%>
