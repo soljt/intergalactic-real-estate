@@ -56,7 +56,7 @@ try
         }
     }	 
     scanner.close();
-    
+    session.invalidate();
     out.print("<br><br><h1>Database loaded.</h1>");
 }
 catch (Exception e)
