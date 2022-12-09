@@ -23,11 +23,9 @@
 		<div class="col-md-4">
 			<div>
 				<% 
-				// Get customer id
-				String custId = request.getParameter("customerId");
 				@SuppressWarnings({"unchecked"})
 				HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
-				
+				session = request.getSession(true);
 				// Determine if there are products in the shopping cart
 				// If either are not true, display an error message
 				if (productList == null || productList.isEmpty()) {
@@ -46,11 +44,40 @@
 				{	
 				
 					// Write query to see if customer is in DB
-					String sql = "SELECT COUNT(1) FROM customer WHERE customerId = ?";
+
+					String username = request.getParameter("username");
+					String password = request.getParameter("password");
+					String retStr = null;
+			
+					if(username == null || password == null){
+						out.println("<h1>Your username or password are empty. Please go back and try again.</h1>");
+						return;
+					}
+					if(username.isEmpty() || password.isEmpty()){
+						out.println("<h1>Your username or password are empty. Please go back and try again.</h1>");
+						return;
+					}
+
+					String sql = "SELECT customerId FROM Customer WHERE userId = ? and password = ?";
+					PreparedStatement pstmt = con.prepareStatement(sql);			
+					pstmt.setString(1, username);
+					pstmt.setString(2, password);
+					
+					ResultSet rst = pstmt.executeQuery();
+							
+					if (!rst.next()){
+						out.println("<h1>That username/password combination is invalid. Please go back and try again.</h1>");
+						return;
+					}
+					
+					int custId = rst.getInt(1);	
+
+					//legacy code from when we only asked for customer id
+					/*String sql = "SELECT COUNT(1) FROM customer WHERE customerId = ?";
 					PreparedStatement pstmt = con.prepareStatement(sql);
 					ResultSet rst;
 					if(custId != null && !custId.isEmpty()) {
-						pstmt.setInt(1, Integer.parseInt(custId));
+						pstmt.setInt(1, custId);
 						rst = pstmt.executeQuery();
 						rst.next();
 						if(rst.getInt(1)!=1) {
@@ -61,14 +88,14 @@
 					else {
 						out.println("<h1>You did not enter an ID. Please go back and try again</h1>"); 
 						return;
-					}
+					}*/
 				
 					// Save order information to database
 					sql = "INSERT INTO ordersummary(customerId, orderDate) VALUES (?,?)";
 					
 					pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);	
 					
-					pstmt.setInt(1, Integer.parseInt(custId));
+					pstmt.setInt(1, custId);
 					
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 					Date date = new Date();  
@@ -166,7 +193,8 @@
 					out.println("<a class=\"btn btn-info\" href=\"index.jsp\" role=\"button\">Back to Homepage</a>");
 				
 					// Clear cart if order placed successfully
-					session.invalidate();
+					session.removeAttribute("productList");
+					session.setAttribute("authenticatedUser",username);
 				}
 				catch (SQLException ex)
 				{
@@ -181,6 +209,8 @@
 				
 				
 				%>
+
+				
 			</div>
 		</div>
 	</div>

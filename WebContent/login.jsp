@@ -38,7 +38,7 @@ if (session.getAttribute("loginMessage") != null)
 							</span>
 							<input type="password" name="password" class="form-control" placeholder="Password">
 						</div>
-						<button type="submit" class="btn btn-primary">Log In</button>
+						<button type="submit" class="btn btn-primary">Log In</button><a class="btn btn-primary" href="userAccount.jsp" role="button">Create Account</a>
 					</div>
 					
 				</form>
