@@ -9,6 +9,9 @@
                 <a class="nav-link" href="listprod.jsp">Begin Shopping</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="showcart.jsp">My Cart</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="listorder.jsp">List All Orders</a>
               </li>
               <li class="nav-item">
