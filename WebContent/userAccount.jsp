@@ -77,7 +77,7 @@
 // Print prior error login message if present
 
 if (session.getAttribute("errorMessage") != null)
-	out.println("<p>"+session.getAttribute("errorMessage").toString()+"</p>");
+	out.println("<div class=\"alert alert-danger\" role=\"alert\">"+session.getAttribute("errorMessage").toString()+"</div>");
 %>
 </div>
 

@@ -17,7 +17,8 @@
                     <input type="text" class="form-control mb-3" name="username" placeholder="Enter your username here">
                     <label for="customerId" class="input-label">Password</label>
                     <input type="password" class="form-control mb-3" name="password" placeholder="Enter your password here">
-                    <button type="submit" class="btn btn-primary">Submit Order</button><a class="btn btn-primary" href="userAccount.jsp" role="button">Create Account</a>
+                    <button type="submit" class="btn btn-primary">Submit Order</button>
+                    <a class="btn btn-primary" href="userAccount.jsp" role="button">Create Account</a>
                 
             </form>
         </div>
