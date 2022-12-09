@@ -58,6 +58,9 @@
 		
 		// Make sure to close connection
 		%>
+		<h3><a class="btn btn-info" href="changeCustomer.jsp?edit=email" role="button">Change Email</a></h3>
+		<h3><a class="btn btn-info" href="changeCustomer.jsp?edit=password" role="button">Change Password</a></h3>
+		
 		</div>
 
 	</div>
