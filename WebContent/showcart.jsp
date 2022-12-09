@@ -76,10 +76,10 @@
 		out.println("<tr><td colspan=\"4\" align=\"right\" id=\"order_total\"><b id=\"order_total\">Order Total</b></td>"
 				+"<td align=\"right\" id=\"order_total\">"+currFormat.format(total)+"</td></tr>");
 		out.println("</table>");
+		out.println("<a class=\"btn btn-primary\" href=\"checkout.jsp\" role=\"button\">Check Out</a>");
 	
 	}
 	%>
-<a class="btn btn-primary" href="checkout.jsp" role="button">Check Out</a>
 <a class="btn btn-secondary" href="index.jsp" role="button">Home</a>
 <a class="btn btn-dark" href="listprod.jsp" role="button">Continue Shopping</a>
 </div>
