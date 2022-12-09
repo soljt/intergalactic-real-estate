@@ -14,8 +14,7 @@ session = request.getSession(true);
     }
 
 	if(success != 0){
-        session.setAttribute("errorMessage", "Your account was created successfully");
-        response.sendRedirect("userAccount.jsp");
+        response.sendRedirect("index.jsp");
     }else
 		response.sendRedirect("userAccount.jsp");
 %>
@@ -144,6 +143,7 @@ int validateUser(JspWriter out,HttpServletRequest request, HttpSession session) 
 
 		if(rowCount != 0){
 			session.removeAttribute("errorMessage");
+            session.setAttribute("authenticatedUser",userID);
         }
 		else
             session.setAttribute("errorMessage","Failed to connect to the database.");

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Account</title>
+<title>Create Account</title>
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="container-lg">
 	<div class="text-center mt3">
-		<h1>User Account</h1>
+		<h1>Create Account</h1>
 	</div>
 	<div class="row align-content-center justify-content-center">
 		<div class="col-md-4">
@@ -56,7 +56,7 @@
 				</tr>
 				<tr>
 					<td><div ><p>Password:</p></div></td>
-					<td><input type="text" name="password" size=10 maxlength=30></td>
+					<td><input type="password" name="password" size=10 maxlength=30></td>
 				</tr>
 				</table>
 				<br/>
