@@ -14,8 +14,8 @@ session = request.getSession(true);
     }
 
 	if(success != 0){
-        response.sendRedirect("userAccount.jsp");
         session.setAttribute("errorMessage", "Your account was created successfully");
+        response.sendRedirect("userAccount.jsp");
     }else
 		response.sendRedirect("userAccount.jsp");
 %>

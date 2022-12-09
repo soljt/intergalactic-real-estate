@@ -33,7 +33,7 @@
 
         // Write query to retrieve all order summary records
         String outerQuery = "SELECT * FROM warehouse";
-        String innerQuery = "SELECT productName, quantity FROM productinventory pi JOIN product p ON pi.productId=p.productId WHERE warehouseId = ?";
+        String innerQuery = "SELECT productName, quantity, pi.productId FROM productinventory pi JOIN product p ON pi.productId=p.productId WHERE warehouseId = ?";
         PreparedStatement pstmt = con.prepareStatement(innerQuery);
         ResultSet rst = stmt.executeQuery(outerQuery);
         
@@ -63,14 +63,19 @@
             while (rst2.next()){
                 out.println("<tr>");
                 out.println("<td>" + rst2.getString(1) + "</td>");
-                out.println("<td>" + rst2.getInt(2) + "</td>");
+                out.println("<td>" + "<form action=\"updateQuantity.jsp?\"><input type = \"text\" name = \"quantity\" value =" + rst2.getInt(2) + ">");
+                out.println("<input type=\"hidden\" name=\"warehouseId\" value=\"" + warehouseId + "\">");
+                out.println("<input type=\"hidden\" name=\"productId\" value=\"" + rst2.getInt(3) + "\">");
+                out.println("<input type=\"submit\" value=\"Update\"></form></td>");
                 out.println("</tr>");
             }
             out.println("</tbody></table></tr>");
         }
         out.println("</tbody>");	
         out.println("</table>");
-
+        // Print prior error login message if present
+        if (session.getAttribute("errorMessage") != null)
+            out.println("<h1>"+session.getAttribute("errorMessage").toString()+"</h1>");
     }   catch(SQLException ex){
         out.println(ex);
     }finally{
