@@ -67,8 +67,9 @@ Furthermore, if at anytime you need to change your email or password, you can cl
 ![image](https://user-images.githubusercontent.com/106346471/206809686-cca86112-d8e8-43f2-a9ef-0231b600e210.png)
 
 
-As a customer you are now automatically an administrator as well! Congratulations! With this authorization you are able to access another one of our pages called Administrator Portal where you can see all customers who have created an account with us, as well as the daily sales we have made. We value security and privacy above all else. 
+As a customer you are now automatically an administrator as well! Congratulations! With this authorization you are able to access another one of our pages called Administrator Portal where you can see all customers who have created an account with us, as well as the daily sales we have made. You are also allowed to add a new product, update or delete a product, change the status of a shipment, add or update a warehouse or customer, and finally restore the database from the Admin Portal. We value security and privacy above all else. 
 
+![admin](https://user-images.githubusercontent.com/60049800/206828041-b6bc5b4b-a98e-49cd-9777-fd9fc961eff2.jpg)
 
 
 You are also allowed access into our Inventory Warehouse page which provides information on our current inventory in our main warehouse located on Mars. Not only are you allowed access, but you are also allowed to make changes to the quantity we have in store of each of our properties. Full control!
