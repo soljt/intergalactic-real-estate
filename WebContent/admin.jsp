@@ -93,8 +93,9 @@
         <button type="submit" class="btn btn-primary">Add/Update</button>
     </div>
 </form>
-<form align="left" method="get" action="loaddata.jsp?caller=admin">
+<form align="left" method="get" action="loaddata.jsp">
     <div class="formdiv">
+        <input type="text" name="caller" placeholder="Type anything to reset" size="30" id="textbox">
         <button type="submit" class="btn btn-primary">Reset Database</button>
     </div>
 </form>
