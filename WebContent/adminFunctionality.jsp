@@ -34,7 +34,7 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
         boolean check = false;
         while(rst.next()){
             String prod = rst.getString(1);
-            if(prod == productId) {
+            if(prod.equals(productId)) {
                 check = true;
             }
         }
@@ -65,6 +65,7 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
         String delete_prod = "DELETE FROM product WHERE productId = ?";
         PreparedStatement pstmt_del = con.prepareStatement(delete_prod);
         pstmt_del.setString(1, del_prodId);
+        pstmt_del.executeUpdate();
     }
     
     //Get parameters for customer add/update from form

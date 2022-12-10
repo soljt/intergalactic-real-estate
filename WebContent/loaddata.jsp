@@ -58,7 +58,7 @@ try
     scanner.close();
     out.print("<br><br><h1>Database loaded.</h1>");
     String call = request.getParameter("caller");
-    if(call.equals("admin")){
+    if(call!=null && call.equals("admin")){
         response.sendRedirect("admin.jsp");
     } else {
         session.invalidate();
