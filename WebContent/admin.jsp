@@ -76,8 +76,11 @@
             
             //Updates a product
             if (check == true) {
-            String update_prod = "UPDATE product SET productName="+productName+" productPrice="+productPrice+" productDesc="+productDesc+"categoryId="+categoryId+" WHERE productId="+productId;
+            String update_prod = "UPDATE product SET productName=?, productPrice=5, productDesc=? WHERE productId=?";
             PreparedStatement pstmt_up = con.prepareStatement(update_prod);
+            pstmt_up.setString(1, productName);
+            pstmt_up.setString(2, productDesc);
+            pstmt_up.setString(3, productId);
             pstmt_up.executeUpdate();
             }
         }   
@@ -85,9 +88,9 @@
         //Deletes product from product id entered by admin
         String del_prodId = request.getParameter("del_prodId");
         if(del_prodId.length() != 0) {
-        String delete_prod = "DELETE FROM product WHERE productId = ?";
-        PreparedStatement pstmt_del = con.prepareStatement(delete_prod);
-        pstmt_del.setString(1, del_prodId);
+            String delete_prod = "DELETE FROM product WHERE productId = ?";
+            PreparedStatement pstmt_del = con.prepareStatement(delete_prod);
+            pstmt_del.setString(1, del_prodId);
         }
         
         //Get parameters for customer add/update from form
