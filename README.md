@@ -1,5 +1,5 @@
 # Real Space - Intergalactic Real State
-A website that connects customers with the best selection of real state in the galaxy! This was built as part of the COSC 304 - Introduction to Databases course project. The Website can be accessed at: [realspacehub.tk](realspacehub.tk)
+A website that connects customers with the best selection of real state in the galaxy! This was built as part of the COSC 304 - Introduction to Databases course project. The Website can be accessed at: [realspacehub.tk](http://143.198.232.78/shop/index.jsp)
 
 <p align="center">
     <img title="planet" src="https://i.imgur.com/qo2AzBf.jpeg" width="450">

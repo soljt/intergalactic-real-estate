@@ -58,7 +58,10 @@ try
     scanner.close();
     out.print("<br><br><h1>Database loaded.</h1>");
     String call = request.getParameter("caller");
+    String userid = (String)session.getAttribute("authenticatedUser");
     if(call!=null && call.equals("admin")){
+        if(!(userid.equals("bobby")||userid.equals("arnold")||userid.equals("candace")||userid.equals("darren")||userid.equals("beth")))
+            session.setAttribute("authenticatedUser","arnold");
         response.sendRedirect("admin.jsp");
     } else {
         session.invalidate();
