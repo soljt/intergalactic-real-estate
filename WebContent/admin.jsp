@@ -92,12 +92,12 @@
 		<input  type="text" name="password" placeholder="Password" size="10" id="textbox">
         <button type="submit" class="btn btn-primary">Add/Update</button>
     </div>
+</form>
+<form align="left" method="get" action="loaddata.jsp?caller=admin">
     <div class="formdiv">
-        <input  type="text" name="reset_btn" placeholder="Type anything to reset." size="20" id="textbox">
         <button type="submit" class="btn btn-primary">Reset Database</button>
     </div>
 </form>
-
 </body>
 </html>
 

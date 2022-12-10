@@ -58,6 +58,11 @@ try
     scanner.close();
     
     out.print("<br><br><h1>Database loaded.</h1>");
+    if(request.getParameter("caller") != "admin"){
+        response.sendRedirect("admin.jsp");
+    } else {
+        session.invalidate();
+    }
 }
 catch (Exception e)
 {
