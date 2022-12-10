@@ -65,7 +65,12 @@ Furthermore, if at anytime you need to change your email or password, you can cl
 
 As a customer you are now automatically an administrator as well! Congratulations! With this authorization you are able to access another one of our pages called Administrator Portal where you can see all customers who have created an account with us, as well as the daily sales we have made. You are also allowed to add a new product, update or delete a product, ship an order, add or update a warehouse or customer, and finally restore the database from the Admin Portal. Be careful not to add dangerous values, as there is not data validation when updating from the admin page. If things get hairy, run loaddata.jsp! We value security and privacy above all else. 
 
-![admin](https://user-images.githubusercontent.com/77518130/206835888-41a3b4ef-81d6-41bc-b24a-eb42dae6a64a.jpg)
+![image](https://user-images.githubusercontent.com/77518130/206835888-41a3b4ef-81d6-41bc-b24a-eb42dae6a64a.jpg)
+
+
+As an administrator, you can choose an order to ship. Doing so lands you on a page that tells you the new inventory for items in that order or displays an error if the order was not able to be fulfilled.
+
+![image](hhttps://user-images.githubusercontent.com/77518130/206836106-eec6a79e-9c9c-4fff-8a8f-822815482f73.jpg)
 
 
 You are also allowed access into our Inventory Warehouse page which provides information on our current inventory in our main warehouse located on Mars. Not only are you allowed access, but you are also allowed to make changes to the quantity we have in store of each of our properties. Full control!
