@@ -11,6 +11,9 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@include file="jdbc.jsp" %>  
 <%@include file="auth.jsp" %>
+<%@ page import="java.util.Scanner" %>
+<%@ page import="java.io.File" %>
+
 <div class="table-section">
     <h1>Administrator Sales Report by Day</h1>
 
@@ -164,11 +167,29 @@
         //Restores Database
         String reset_btn = request.getParameter("reset_btn");
         if (reset_btn == "Y") {
-            String restore = "RESTORE DATABASE orders FROM DISK = './WebContent/ddl/orderdb_sql.ddl'";
-            PreparedStatement pstmt_reset = con.prepareStatement(restore);
-            pstmt_reset.executeQuery();
-        }
-        
+            // Create statement
+            stmt = con.createStatement();
+
+            Scanner scanner = new Scanner(new File("/usr/local/tomcat/webapps/shop/ddl/orderdb_sql.ddl"));
+            // Read commands separated by ;
+            scanner.useDelimiter(";");
+            while (scanner.hasNext())
+            {
+                String command = scanner.next();
+                if (command.trim().equals("") || command.trim().equals("go"))
+                    continue;
+                // out.print(command+"<br>");        // Uncomment if want to see commands executed
+                try
+                {
+                    stmt.execute(command);
+                }
+                catch (Exception e)
+                {	// Keep running on exception.  This is mostly for DROP TABLE if table does not exist.
+                    out.println(e+"<br>");
+                }
+            }	 
+            scanner.close();
+        }        
     }   catch(SQLException ex){
         out.println(ex.toString());
     }finally{
