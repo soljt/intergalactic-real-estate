@@ -107,6 +107,8 @@ catch(SQLException ex)
 
 
 <h3><a class="btn btn-info" href="index.jsp" role="button">Back to Main Page</a></h3>
+<h3><a class="btn btn-info" href="admin.jsp" role="button">Administrator Portal</a></h3>
+<h3><a class="btn btn-info" href="warehouse.jsp" role="button">Edit Inventory by Warehouse</a></h3>
 
 </body>
 </html>

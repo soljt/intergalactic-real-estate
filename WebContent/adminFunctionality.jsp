@@ -123,22 +123,7 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
         pstmt_addware.setString(1, warehouseName);
         pstmt_addware.executeQuery();
     }
-    
-    //Get parameters for shipment update from form
-    String shipmentDate = request.getParameter("shipmentDate");
-    String shipmentDesc = request.getParameter("shipmentDesc");
-    String shipmentId = request.getParameter("shipmentId");
-
-    //Update shipment (ship order)
-    if(shipmentId.length() != 0) {
-    String ship_order = "UPDATE shipment SET shipmentDate=?, shipmentDesc=?, warehouseId=? WHERE shipmentId=?";
-    PreparedStatement pstmt_ship = con.prepareStatement(ship_order);
-    pstmt_ship.setString(1, shipmentDate);
-    pstmt_ship.setString(2, shipmentDesc);
-    pstmt_ship.setString(3, warehouseId);
-    pstmt_ship.setString(4, shipmentId);
-    pstmt_ship.executeUpdate();
-    }        
+          
 }   catch(SQLException ex){
     out.println(ex.toString());
 }finally{
