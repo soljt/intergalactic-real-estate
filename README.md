@@ -1,5 +1,5 @@
 # Real Space - Intergalactic Real State
-A website that connects customers with the best selection of real state in the galaxy! This was built as part of the COSC 304 - Introduction to Databases course project.
+A website that connects customers with the best selection of real state in the galaxy! This was built as part of the COSC 304 - Introduction to Databases course project. The Website can be accessed at: [realspacehub.tk](realspacehub.tk)
 
 <p align="center">
     <img title="planet" src="https://i.imgur.com/qo2AzBf.jpeg" width="450">
@@ -28,10 +28,6 @@ The mission of Intergalactic Real Estate is to provide people with the best real
 
 ## Our Executive Summary
 Our company will be designed to sell properties from different planets to people on Earth. As our Earth’s population expands, people are setting their sites on the idea of relocating to different planets and we are here to provide them with the best real estate options wherever they go. The start of our business plan is to create a website showcasing our potential properties including attributes such as property description, planet location, price range and so on. This business strategy will allow for advertisement and easy access to this new and upcoming real estate opportunity. Our main strategy for competing against other real estate businesses is to sell our properties at astonishingly low prices! This strategy has never been attempted before, so the start of this business comes with some risks, but with our pristine properties and prices you can't go much lower from, we can take off to new heights!
-
-## System Features
-
-
 
 ## Walkthrough of our Website
 
@@ -67,9 +63,9 @@ Furthermore, if at anytime you need to change your email or password, you can cl
 ![image](https://user-images.githubusercontent.com/106346471/206809686-cca86112-d8e8-43f2-a9ef-0231b600e210.png)
 
 
-As a customer you are now automatically an administrator as well! Congratulations! With this authorization you are able to access another one of our pages called Administrator Portal where you can see all customers who have created an account with us, as well as the daily sales we have made. You are also allowed to add a new product, update or delete a product, change the status of a shipment, add or update a warehouse or customer, and finally restore the database from the Admin Portal. We value security and privacy above all else. 
+As a customer you are now automatically an administrator as well! Congratulations! With this authorization you are able to access another one of our pages called Administrator Portal where you can see all customers who have created an account with us, as well as the daily sales we have made. You are also allowed to add a new product, update or delete a product, ship an order, add or update a warehouse or customer, and finally restore the database from the Admin Portal. Be careful not to add dangerous values, as there is not data validation when updating from the admin page. If things get hairy, run loaddata.jsp! We value security and privacy above all else. 
 
-![admin](https://user-images.githubusercontent.com/60049800/206828041-b6bc5b4b-a98e-49cd-9777-fd9fc961eff2.jpg)
+![admin](https://user-images.githubusercontent.com/77518130/206835888-41a3b4ef-81d6-41bc-b24a-eb42dae6a64a.jpg)
 
 
 You are also allowed access into our Inventory Warehouse page which provides information on our current inventory in our main warehouse located on Mars. Not only are you allowed access, but you are also allowed to make changes to the quantity we have in store of each of our properties. Full control!
