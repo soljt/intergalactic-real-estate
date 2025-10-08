@@ -9,19 +9,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
-
+<%@ include file="header.jsp" %>
 <div class="container-lg">
 	<div class="text-center mt-3">
 		<h1>Please Login to System</h1>
-<%
-// Print prior error login message if present
-if (session.getAttribute("loginMessage") != null)
-	out.println("<p>"+session.getAttribute("loginMessage").toString()+"</p>");
-%>
+
 
 		<div class="row justify-content-center my-4">
-			
+
 			<div class="col-md-4">
+				<%
+					// Print prior error login message if present
+					if (session.getAttribute("loginMessage") != null)
+						out.println("<div class=\"alert alert-danger\" role=\"alert\">"+session.getAttribute("loginMessage").toString()+"</div>");
+				%>
 				<form method=post action="validateLogin.jsp">
 					<div class="text-start">
 						<label class="form-label" for="username">Username</label>
