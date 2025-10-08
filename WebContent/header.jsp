@@ -1,7 +1,7 @@
 
     <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
     
-    <nav class="px-3 navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <nav class="px-3 navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
         <a class="navbar-brand" href="index.jsp">Real Space</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
