@@ -7,16 +7,19 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+<%@ include file="jdbc.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>YOUR NAME Grocery Order Processing</title>
+<title>RealSpace Order Processing</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 </head>
 <body>
-	<div class="container-lg">
+	<%@ include file="header.jsp" %>
+	<div class="container-lg p-3">
 
 
 	<div class="row justify-content-center">
@@ -62,7 +65,7 @@
 						return;
 					}
 
-					String sql = "SELECT customerId FROM Customer WHERE userId = ? and password = ?";
+					String sql = "SELECT customerId, userId FROM Customer WHERE userId = ? and password = ?";
 					PreparedStatement pstmt = con.prepareStatement(sql);			
 					pstmt.setString(1, username);
 					pstmt.setString(2, password);
@@ -75,6 +78,7 @@
 					}
 					
 					int custId = rst.getInt(1);	
+					String userId = rst.getString(2);
 
 					//legacy code from when we only asked for customer id
 					/*String sql = "SELECT COUNT(1) FROM customer WHERE customerId = ?";
@@ -193,7 +197,7 @@
 				
 					out.println("<p>Order Complete! Totally gonna ship you this order</p>");
 					out.println(String.format("<p>Reference Number: %d</p>",orderId));
-					out.println(String.format("<p>Shipping to customer number: %s</p>", custId));
+					out.println(String.format("<p>Shipping to customer: %s</p>", userId));
 					out.println("<a class=\"btn btn-info\" href=\"index.jsp\" role=\"button\">Back to Homepage</a>");
 				
 					// Clear cart if order placed successfully

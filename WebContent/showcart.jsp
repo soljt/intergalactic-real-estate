@@ -9,10 +9,12 @@
 <html>
 <head>
 <title>Your Shopping Cart</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
+	<%@ include file="header.jsp" %>
 <div class="container-sm mt-3 mb-3">
 	<%
 	// Get the current list of products
@@ -28,9 +30,19 @@
 		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 	
 		out.println("<h1 align=\"center\">Your Shopping Cart</h1>");
-		out.print("<table class=\"table table-secondary table-hover align-middle table-sm justify-content-center\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-		out.println("<th>Price</th><th>Subtotal</th></tr>");
-	
+		out.println("<div class=\"table-responsive my-4 rounded shadow-sm\">");
+		out.print("<table class=\"table table-secondary table-hover align-middle table-sm mb-0\">");
+		out.println("<thead class=\"table-light\">");
+		out.println("<tr>");
+		out.println("<th class=\"text-start\">Product ID</th>");
+		out.println("<th class=\"text-start\">Product Name</th>");
+		out.println("<th class=\"text-center\">Quantity</th>");
+		out.println("<th class=\"text-end\">Price</th>");
+		out.println("<th class=\"text-end\">Subtotal</th>");
+		out.println("</tr>");
+		out.println("</thead>");
+
+		out.println("<tbody>");
 		double total =0;
 		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 		while (iterator.hasNext()) 
@@ -38,14 +50,10 @@
 			ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
 			if (product.size() < 4)
 			{
-				out.println("Expected product with four entries. Got: "+product);
+				out.println("<tr><td colspan=\"5\" class=\"text-danger\">Expected product with four entries. Got: " + product + "</td></tr>");
 				continue;
 			}
-			
-			out.print("<tr><td>"+product.get(0)+"</td>");
-			out.print("<td>"+product.get(1)+"</td>");
-	
-			out.print("<td align=\"center\">"+product.get(3)+"</td>");
+
 			Object price = product.get(2);
 			Object itemqty = product.get(3);
 			double pr = 0;
@@ -68,14 +76,27 @@
 				out.println("Invalid quantity for product: "+product.get(0)+" quantity: "+qty);
 			}		
 	
-			out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-			out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
+			out.println("<tr>");
+			out.println("<td class=\"text-start\">" + product.get(0) + "</td>");
+			out.println("<td class=\"text-start\">" + product.get(1) + "</td>");
+			out.println("<td class=\"text-center\">" + qty + "</td>");
+			out.println("<td class=\"text-end\">" + currFormat.format(pr) + "</td>");
+			out.println("<td class=\"text-end\">" + currFormat.format(pr * qty) + "</td>");
 			out.println("</tr>");
 			total = total +pr*qty;
 		}
-		out.println("<tr><td colspan=\"4\" align=\"right\" id=\"order_total\"><b id=\"order_total\">Order Total</b></td>"
-				+"<td align=\"right\" id=\"order_total\">"+currFormat.format(total)+"</td></tr>");
+		out.println("</tbody>");
+
+		// Footer / total row
+		out.println("<tfoot>");
+		out.println("<tr class=\"fw-semibold\">");
+		out.println("<td colspan=\"4\" class=\"text-end\">Order Total</td>");
+		out.println("<td class=\"text-end\">" + currFormat.format(total) + "</td>");
+		out.println("</tr>");
+		out.println("</tfoot>");
+
 		out.println("</table>");
+		out.println("</div>");
 		out.println("<a class=\"btn btn-primary\" href=\"checkout.jsp\" role=\"button\">Check Out</a>");
 	
 	}

@@ -6,6 +6,7 @@
 <html>
 <head>
 <title>Real Space</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <!--link rel="stylesheet" href="css/styles2.css"/-->
@@ -25,7 +26,7 @@
 				</div>
 				<div class="input-group">
 					<select class="form-select" name="category" id="category">
-						<option selected value=0>Select Category</option>
+						<option selected value=0>All Categories</option>
 						<option value=1 name="category">Space</option>
 						<option value=2 name="category">Galactic</option>
 						<option value=3 name="category">Planetary</option>
@@ -141,12 +142,12 @@ Statement stmt = con.createStatement();)
 		}
 	}
 
-	
-	out.println("<table class=\"table table-secondary table-striped table-hover table-sm align-middle justify-content-center\">");
-		out.println("<thead>");
+	out.println("<div class=\"table-responsive my-4 rounded shadow-sm\">");
+	out.println("<table class=\"table table-secondary table-striped table-hover table-sm align-middle text-center\">");
+	out.println("<thead>");
 		
 	out.println("<tr>");	
-	out.println("<th scope=\"col\"></th><th scope=\"col\">Product Name</th><th scope=\"col\">Image</th><th scope=\"col\">Description</th><th scope=\"col\">Price</th>");
+	out.println("<th scope=\"col\" style=\"width: 120px;\"></th><th class=\"text-start\" scope=\"col\">Product Name</th><th scope=\"col\" style=\"width: 150px;\">Image</th><th class=\"text-start\" scope=\"col\">Description</th><th scope=\"col\" style=\"width: 120px;\">Price</th>");
 	out.println("</tr>");
 	out.println("</thead>");
 	out.println("<tbody>");	
@@ -165,10 +166,10 @@ Statement stmt = con.createStatement();)
 		String desc = rst.getString("productDesc");
 
 		out.println("<tr>");
-		out.println(String.format("<td><a class=\"product-link\" id=\"add\" href=\"addcart.jsp?id=%d&name=%s&price=%.2f\">Add to cart</a></td>", pid, pname , price));
-		out.println(String.format("<td><a class=\"product-link\" href=\"product.jsp?id=%d\">%s</a></td>",pid, pname));
-		out.println(String.format("<td>" + "<img class=\"img-thumbnail\" src=\"%s\">" + "</td>", imurl));
-		out.println(String.format("<td>%s</td>",desc));
+		out.println(String.format("<td><a class=\"btn btn-link p-0 text-decoration-underline\" id=\"add\" href=\"addcart.jsp?id=%d&name=%s&price=%.2f\">Add to cart</a></td>", pid, pname , price));
+		out.println(String.format("<td class=\"text-start\"><a class=\"btn link-primary text-decoration-underline\" href=\"product.jsp?id=%d\">%s</a></td>",pid, pname));
+		out.println(String.format("<td>" + "<img class=\"img-fluid img-thumbnail\" style=\"max-width: 100px; height: auto;\" src=\"%s\">" + "</td>", imurl));
+		out.println(String.format("<td class=\"text-start\">%s</td>",desc));
 		out.println("<td>" + currFormat.format(price) + "</td>");
 		out.println("</tr>");
 	}
@@ -180,13 +181,13 @@ Statement stmt = con.createStatement();)
 
 // Useful code for formatting currency values:
 // NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-// out.println(currFormat.format(5.0);	// Prints $5.00
+// out.println(currFormat.format(5.0));	// Prints $5.00
 %>
-
 </div>
 
 
 
 
+</div>
 </body>
 </html>

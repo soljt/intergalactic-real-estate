@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Customer Page</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
@@ -10,7 +11,7 @@
 <%@ include file="auth.jsp"%>
 <%@ page import="java.text.NumberFormat" %>
 <%@ include file="jdbc.jsp" %>
-<div class="container text-center">
+<div class="container text-center p-3">
 	<div class="row text-center justify-content-center">
 		<div class="col-md-4">
 			<h1>Customer Profile</h1>

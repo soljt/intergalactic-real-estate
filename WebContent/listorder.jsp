@@ -5,13 +5,42 @@
 <html>
 <head>
 <title>YOUR NAME Grocery Order List</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
+<style>
+  body {
+    background: url('images/background2.jpg') center center / cover no-repeat fixed;
+	background-attachment: fixed;
+    min-height: 100vh;
+    color: white; /* Default text color over background */
+    position: relative;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4); /* darkens background slightly */
+    z-index: -1; /* behind content */
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+</style>
 <body>
 	<%@ include file="jdbc.jsp" %>
 	<%@ include file="header.jsp" %>
-<h1 align="center">Order List</h1>
+<h1 align="center" class="p-3">Order List</h1>
 
 <div class="row justify-content-center">
 	<div class="col-lg-6">
@@ -88,7 +117,7 @@
 		{
 			out.println("SQLException: " + ex);
 		}finally{
-			out.println("<a class=\"btn btn-info\" href=\"index.jsp\" role=\"button\">Back to Homepage</a>");
+			out.println("<a class=\"btn btn-info mb-3\" href=\"index.jsp\" role=\"button\">Back to Homepage</a>");
 		}
 
 		%>

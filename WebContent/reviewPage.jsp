@@ -4,11 +4,12 @@
 <html>
 <head>
 <title>Real Space Hub Main Page</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
-
+    <%@ include file="header.jsp" %>
     
     <section id="review-form">
         <div class="container-lg">
@@ -34,18 +35,24 @@
                                   </select>
                             </div>
                             
-
                               <label class="form-label" for="productId">Select product Id</label>
                               <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="bi bi-house-fill"></i>
                                 </span>
                                 <select class="form-select" name="productId" id="productId">
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                <%
+                                    String sql = "SELECT productId, productName FROM product"; //in case the list would be too long
+                                    PreparedStatement pstmt = con.prepareStatement(sql);
+                                    ResultSet rs = pstmt.executeQuery();
+                                    
+                                    while(rs.next()){
+                                        int pid = rs.getInt("productId");
+                                        String pname = rs.getString("productName");
+
+                                        out.println(String.format("<option value=\"%d\">%s</option>", pid, pname));
+                                    }
+                                %>
                                   </select>
                               </div>
                                 

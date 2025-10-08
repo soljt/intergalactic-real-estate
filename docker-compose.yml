@@ -8,11 +8,7 @@ services:
             MYSQL_DATABASE: 'testuser'
             MYSQL_USER: 'testuser'
             MYSQL_PASSWORD: '304testpw'            
-            MYSQL_ROOT_PASSWORD: '304rootpw'
-        ports:
-            - '3306:3306'
-        expose:
-            - '3306'   
+            MYSQL_ROOT_PASSWORD: '304rootpw' 
         volumes:
             - mysql-db:/var/lib/mysql
             - ./WebContent/ddl:/docker-entrypoint-initdb.d
@@ -27,10 +23,6 @@ services:
         environment:
             ACCEPT_EULA: 'Y'
             SA_PASSWORD: '304#sa#pw'
-        ports:
-            - '1433:1433'
-        expose:
-            - '1433'
         volumes:
             - cosc304-db:/var/lib/mssql            
             - ./WebContent/ddl:/scripts

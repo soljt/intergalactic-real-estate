@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Warehouse Page</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
@@ -11,7 +12,7 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@include file="jdbc.jsp" %>  
 <%@include file="auth.jsp" %>
-<div class="table-section">
+<div class="table-section p-3">
     <h1>Inventory by Warehouse</h1>
 
 

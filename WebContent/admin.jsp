@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Administrator Page</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
@@ -14,7 +15,7 @@
 <%@ page import="java.util.Scanner" %>
 <%@ page import="java.io.File" %>
 
-<div class="table-section">
+<div class="table-section p-3">
     <h1>Administrator Sales Report by Day:</h1>
 
 
@@ -59,7 +60,7 @@
     }
     %>
 </div>
-<form align="left" method="get" action="adminFunctionality.jsp">
+<form align="left" class="p-3" method="get" action="adminFunctionality.jsp">
 	<div class="formdiv">
         <tr><th>Add/Update Product</th></tr>
 		<input  type="text" name="productId" placeholder="Product ID" size="20" id="textbox">
@@ -90,13 +91,13 @@
         <button type="submit" class="btn btn-primary">Add/Update</button>
     </div>
 </form>
-<form align="left" method="get" action="ship.jsp">
+<form align="left" class="p-3" method="get" action="ship.jsp">
   <div class="formdiv">
     <tr><th>Ship Order</th></tr>
     <input  type="text" name="orderId" placeholder="Enter Order ID to ship" size="20" id="textbox">
     <button type="submit" class="btn btn-primary">Ship</button>
   </div>
 </form>
-<h3><a class="btn btn-info" href="loaddata.jsp?caller=admin" role="button">Reload Database</a></h3>
+<h3 class="p-3"><a class="btn btn-info" href="loaddata.jsp?caller=admin" role="button">Reload Database</a></h3>
 </body>
 </html>

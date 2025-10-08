@@ -16,12 +16,17 @@
 <!-- Jumbotron -->
 <div
   class="bg-image p-lg-5 text-center shadow-1-strong rounded mb-5 text-white align-content-center"
-  style="background-image: url('https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'); height: 50vh;"
+  style="background-image: url('https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 60vh;"
 >
   <h1 class="mb-3 h2">Welcome</h1>
 
   <p>
-   To your best choice of intergalactic real state!
+   To your best choice of intergalactic real estate!
  
   </p>
   <a class="btn btn-primary" href="listprod.jsp" role="button">Shop Now!</a>
