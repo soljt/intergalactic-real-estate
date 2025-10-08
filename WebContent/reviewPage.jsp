@@ -4,9 +4,9 @@
 <html>
 <head>
 <title>Real Space Hub Main Page</title>
-<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="bg-styles.css">
 </head>
 <body>
     <%@ include file="header.jsp" %>
@@ -60,7 +60,7 @@
 
                               <div class="form-floating mb-4 mt-4">
                                 <textarea id="reviewComment" class="form-control" style="height: 20vh" name="review"></textarea>
-                                <label for="reviewComment">Add a written review</label>
+                                <label class="text-muted" for="reviewComment">Add a written review</label>
                               </div>
                             
                               

@@ -33,3 +33,29 @@
     text-align: center;
     padding: 5rem 2rem;
   }
+
+/* GLOBAL MINIMAL SCROLLBAR STYLE */
+* {
+  scrollbar-width: thin;             /* Firefox */
+  scrollbar-color: #b0b0b0 #f0f0f0;  /* Firefox: thumb + track */
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f0f0f0;  /* Track color */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #b0b0b0; /* Scroll handle color */
+  border-radius: 10px;
+  border: 2px solid #f0f0f0; /* Gives a little inset padding */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}

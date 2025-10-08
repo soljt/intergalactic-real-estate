@@ -30,31 +30,36 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
 
     if (productId.length() != 0) {
         //Checks if product already exists
-        ResultSet rst = stmt.executeQuery("SELECT productId FROM product");
+        ResultSet rst = stmt.executeQuery("SELECT productId, productName, productDesc, productPrice FROM product");
         boolean check = false;
         while(rst.next()){
             String prod = rst.getString(1);
             if(prod.equals(productId)) {
                 check = true;
+                productName = productName == null || productName.isEmpty() ? rst.getString("productName") : productName;
+                productDesc = productDesc == null || productDesc.isEmpty() ? rst.getString("productDesc") : productDesc;
+                productPrice = productPrice == null || productPrice.isEmpty() ? rst.getString("productPrice") : productPrice;
             }
         }
 
         //Creates new product
-        if (check == false) {
-        String new_prod = "INSERT INTO product(productName, productPrice, productDesc) VALUES (?, 5, ?)";  
+        if (!check) {
+        String new_prod = "INSERT INTO product(productName, productPrice, productDesc) VALUES (?, ?, ?)";  
         PreparedStatement pstmt_new = con.prepareStatement(new_prod);
         pstmt_new.setString(1, productName);
-        pstmt_new.setString(2, productDesc);
+        pstmt_new.setString(2, productPrice);
+        pstmt_new.setString(3, productDesc);
         pstmt_new.executeQuery();
         }
         
         //Updates a product
-        if (check == true) {
-        String update_prod = "UPDATE product SET productName=?, productPrice=5, productDesc=? WHERE productId=?";
+        else {
+        String update_prod = "UPDATE product SET productName=?, productPrice=?, productDesc=? WHERE productId=?";
         PreparedStatement pstmt_up = con.prepareStatement(update_prod);
         pstmt_up.setString(1, productName);
-        pstmt_up.setString(2, productDesc);
-        pstmt_up.setString(3, productId);
+        pstmt_up.setString(2, productPrice);
+        pstmt_up.setString(3, productDesc);
+        pstmt_up.setString(4, productId);
         pstmt_up.executeUpdate();
         }
     }   
@@ -65,6 +70,16 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
         String delete_prod = "DELETE FROM product WHERE productId = ?";
         PreparedStatement pstmt_del = con.prepareStatement(delete_prod);
         pstmt_del.setString(1, del_prodId);
+        pstmt_del.executeUpdate();
+    }
+
+    //Deletes customer from customer id entered by admin
+    String del_custId = request.getParameter("del_custId");
+
+    if (del_custId != null && !del_custId.isEmpty()) {
+        String delete_cust = "DELETE FROM customer WHERE customerId = ?";
+        PreparedStatement pstmt_del = con.prepareStatement(delete_cust);
+        pstmt_del.setString(1, del_custId);
         pstmt_del.executeUpdate();
     }
     
@@ -79,6 +94,19 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
 
     //Query to update customer
     if (custId.length() != 0){
+        //Query to get old cust
+        String get_cust = "SELECT firstName, lastName, email, phonenum, userid, password FROM customer WHERE customerId=?";
+        PreparedStatement pstmt_getcus = con.prepareStatement(get_cust);
+        pstmt_getcus.setString(1, custId);
+        ResultSet rs = pstmt_getcus.executeQuery();
+        while (rs.next()) {
+            if (first == null || first.isEmpty()) first = rs.getString("firstName");
+            if (last == null || last.isEmpty()) last = rs.getString("lastName");
+            if (mail == null || mail.isEmpty()) mail = rs.getString("email");
+            if (phone == null || phone.isEmpty()) phone = rs.getString("phonenum");
+            if (uid == null || uid.isEmpty()) uid = rs.getString("userid");
+            if (pass == null || pass.isEmpty()) pass = rs.getString("password");
+        }
         String update_customer = "UPDATE customer SET firstName=?, lastName=?, email=?, phonenum=?, userid=?, password=? WHERE customerId=?";
         PreparedStatement pstmt_upcus = con.prepareStatement(update_customer);
         pstmt_upcus.setString(1, first);
@@ -110,6 +138,7 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
 
     //Update warehouse
     if(warehouseId.length() != 0){
+        String get_warehouse = "";
         String update_warehouse = "UPDATE warehouse SET warehouseName=? WHERE warehouseId=?";
         PreparedStatement pstmt_upware = con.prepareStatement(update_warehouse);
         pstmt_upware.setString(1, warehouseName);
