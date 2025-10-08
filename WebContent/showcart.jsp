@@ -101,8 +101,10 @@
 	
 	}
 	%>
-<a class="btn btn-secondary" href="index.jsp" role="button">Home</a>
-<a class="btn btn-dark" href="listprod.jsp" role="button">Continue Shopping</a>
+	<div class="text-center">
+	<a class="btn btn-secondary" href="index.jsp" role="button">Home</a>
+	<a class="btn btn-dark" href="listprod.jsp" role="button">Continue Shopping</a>
+	</div>
 </div>
 
 

@@ -11,13 +11,14 @@
 <html>
 <head>
 <title>Real Space Hub Shipment Processing</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
-        
-<%@ include file="header.jsp" %>
 
+<%@ include file="header.jsp" %>
+<div class="container p-3" >
 <%
 //Connection info
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";		
@@ -109,6 +110,6 @@ catch(SQLException ex)
 <h3><a class="btn btn-info" href="index.jsp" role="button">Back to Main Page</a></h3>
 <h3><a class="btn btn-info" href="admin.jsp" role="button">Administrator Portal</a></h3>
 <h3><a class="btn btn-info" href="warehouse.jsp" role="button">Edit Inventory by Warehouse</a></h3>
-
+</div>
 </body>
 </html>

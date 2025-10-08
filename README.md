@@ -6,10 +6,11 @@ A website that connects customers with the best selection of real state in the g
 </p>
 
 ## Setup
-All you need to do is open docker, open the terminal and run the following command:
+To deploy the site locally via tomcat: open docker, open the terminal in the project directory and run the following command:
 ``` 
 docker-compose up -d
 ```
+Check the docker-compose.yml file for the port number for the app service (e.g. 80) and open localhost:port/shop in your browser.
 
 ## Technologies
 This project was built using
@@ -17,17 +18,17 @@ This project was built using
 * Docker
 
 ## Authors
+* Sol
 * Leo
 * Tyler
 * Viv
-* Sol
 * Wilfred
 
 ## Our Mission Statement
-The mission of Intergalactic Real Estate is to provide people with the best real estate opportunities from the diverse selection of planets in our universe. 
+The mission of Intergalactic Real Estate is to provide people with the best real estate opportunities from the diverse selection of planets in our universe.
 
 ## Our Executive Summary
-Our company will be designed to sell properties from different planets to people on Earth. As our Earth’s population expands, people are setting their sites on the idea of relocating to different planets and we are here to provide them with the best real estate options wherever they go. The start of our business plan is to create a website showcasing our potential properties including attributes such as property description, planet location, price range and so on. This business strategy will allow for advertisement and easy access to this new and upcoming real estate opportunity. Our main strategy for competing against other real estate businesses is to sell our properties at astonishingly low prices! This strategy has never been attempted before, so the start of this business comes with some risks, but with our pristine properties and prices you can't go much lower from, we can take off to new heights!
+Our company is designed to sell properties from different planets to people on Earth. As Earth’s population expands, people are arming up to the idea of relocating to other planets and we are here to provide them with the best real estate options wherever they go. The start of our business plan is to create a website showcasing our potential properties including images and pricing. Our market advantage for competing against other real estate businesses is that we sell our properties at astonishingly low prices! No one has ever attempted to enter the real estate market with such slim margins before, so the start of this business comes with some risks...
 
 ## Walkthrough of our Website
 
@@ -51,7 +52,7 @@ The user ID and password you create here will allow you to login to your account
 ![image](https://user-images.githubusercontent.com/106346471/206809556-84e05bb6-7d23-409a-861c-a969a597d2a7.png)
 
 
-Once you have created your account, anytime you login to your account, you can navigate to the Customer Info page where you can review your account information at anytime…
+Once you have created your account you can navigate to the Customer Info page where you can review your account information at anytime…
 
 
 ![image](https://user-images.githubusercontent.com/106346471/206809622-92496150-b629-4875-8461-4812582d45c8.png)
@@ -63,7 +64,7 @@ Furthermore, if at anytime you need to change your email or password, you can cl
 ![image](https://user-images.githubusercontent.com/106346471/206809686-cca86112-d8e8-43f2-a9ef-0231b600e210.png)
 
 
-As a customer you are now automatically an administrator as well! Congratulations! With this authorization you are able to access another one of our pages called Administrator Portal where you can see all customers who have created an account with us, as well as the daily sales we have made. You are also allowed to add a new product, update or delete a product, ship an order, add or update a warehouse or customer, and finally restore the database from the Admin Portal. Be careful not to add dangerous values, as there is not data validation when updating from the admin page. If things get hairy, run loaddata.jsp! We value security and privacy above all else. 
+As a customer you are now automatically an administrator as well! Congratulations! With this authorization you are able to access another one of our pages called the Administrator Portal where you can see all customers who have created an account with us, as well as the daily sales we have made. You are also allowed to add a new product, update or delete a product, ship an order, add or update a warehouse or customer, and finally restore the database from the Admin Portal. Be careful not to add dangerous values, as there is no data validation when updating from the admin page. If things get hairy, run loaddata.jsp! As you can tell, we value security and privacy above all else.
 
 ![image](https://user-images.githubusercontent.com/77518130/206835888-41a3b4ef-81d6-41bc-b24a-eb42dae6a64a.jpg)
 
@@ -134,5 +135,3 @@ Once submitted, the next time you navigate back to that property on our website 
 
 
 Now that you know how to navigate our website, go take a look for yourself! Happy shopping!
-
-

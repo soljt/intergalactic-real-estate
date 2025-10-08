@@ -23,12 +23,12 @@
         background-attachment: fixed;
         height: 60vh;"
 >
-  <h1 class="mb-3 h2">Welcome</h1>
+  <h1 class="mb-3 display">Welcome</h1>
 
-  <p>
-   To your best choice of intergalactic real estate!
+  <h5>
+   to your best choice of intergalactic real estate!
  
-  </p>
+  </h5>
   <a class="btn btn-primary" href="listprod.jsp" role="button">Shop Now!</a>
   <a class="btn btn-primary" href="userAccount.jsp" role="button">Create an Account!</a>
 </div>

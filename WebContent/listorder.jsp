@@ -71,7 +71,7 @@
 		{	
 			NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 			// Write query to retrieve all order summary records
-			String outerQuery = "SELECT orderId, orderSummary.customerId, firstName, lastName, totalAmount FROM orderSummary join customer on customer.customerId = orderSummary.customerId";
+			String outerQuery = "SELECT orderId, orderSummary.customerId, orderDate, firstName, lastName, totalAmount FROM orderSummary join customer on customer.customerId = orderSummary.customerId";
 			String innerQuery = "SELECT productId, quantity, price FROM orderProduct WHERE orderId = ?";
 			PreparedStatement pstmt = con.prepareStatement(innerQuery);
 			ResultSet rst = stmt.executeQuery(outerQuery);
@@ -79,7 +79,7 @@
 			out.println("<table class=\"table table-bordered table-secondary table-hover table-striped\">");
 			out.println("<tbody>");		
 			out.println("<tr>");	
-			out.println("<th>Order ID</th><th>Customer ID</th><th>Customer Name</th><th>Total Amount</th>");
+			out.println("<th>Order ID</th><th>Date</th><th>Customer ID</th><th>Customer Name</th><th>Total Amount</th>");
 			out.println("</tr>");
 			// For each order in the ResultSet
 			while (rst.next())
@@ -88,6 +88,7 @@
 				out.println("<tr class=\"custinfo\">");
 				int orderId = rst.getInt("orderId");
 				out.println("<td>" + orderId + "</td>");
+				out.println("<td>" + rst.getDate("orderDate") + "</td>");
 				out.println("<td>" + rst.getInt("customerId") + "</td>");
 				out.println("<td>" + rst.getString("firstName") + " " + rst.getString("lastName")+ "</td>");
 				out.println("<td>" + currFormat.format(rst.getDouble("totalAmount")) + "</td>");
@@ -100,7 +101,7 @@
 		
 				// For each product in the order
 				// Write out product information 
-				out.println("<tr align = \"right\"><td colspan = 4><table class=\"table table-dark table-hover table-striped\"><tbody><tr><th>Product ID</th><th>Quantity</th><th>Price</th></tr>");
+				out.println("<tr align = \"right\"><td colspan = 5><table class=\"table table-dark table-hover table-striped\"><tbody><tr><th>Product ID</th><th>Quantity</th><th>Price</th></tr>");
 				while (rst2.next()){
 					out.println("<tr>");
 					out.println("<td>" + rst2.getInt("productId") + "</td>");
