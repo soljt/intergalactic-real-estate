@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>Real Space Hub Main Page</title>
+<link rel="stylesheet" href="bg-styles.css">
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 </head>
 <body>
