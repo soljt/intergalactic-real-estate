@@ -77,7 +77,7 @@ services:
         volumes:
         - ./nginx/conf.d:/etc/nginx/conf.d:ro
         - /srv/portfolio/dist:/usr/share/nginx/html:ro
-        - /etc/ssl/:/etc/ssl:ro            
+        - /etc/ssl/soljt:/etc/ssl/soljt:ro            
         depends_on:
         - app
         networks:
