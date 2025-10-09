@@ -65,8 +65,24 @@ services:
             network304:
                 aliases:
                     - cosc304-java
+        expose:
+            - "8080"
+
+    nginx:
+        image: nginx:stable
+        container_name: nginx-proxy
         ports:
-            - 80:8080
+        - "80:80"
+        - "443:443"
+        volumes:
+        - ./nginx/conf.d:/etc/nginx/conf.d:ro
+        - /srv/portfolio/dist:/usr/share/nginx/html:ro
+        - /etc/ssl/:/etc/ssl:ro            
+        depends_on:
+        - app
+        networks:
+        - network304
+        restart: unless-stopped
 volumes: 
     cosc304-db:
     mysql-db:
