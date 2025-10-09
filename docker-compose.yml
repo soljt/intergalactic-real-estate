@@ -44,7 +44,7 @@ services:
             - cosc304-sqlserver
         container_name: cosc304-java
         volumes:
-            - ./WebContent:/usr/local/tomcat/webapps/shop/
+            - ./WebContent:/usr/local/tomcat/webapps/ROOT/:ro
         networks:
             network304:
                 aliases:
