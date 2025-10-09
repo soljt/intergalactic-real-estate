@@ -135,7 +135,7 @@
                 
                 if (!hasReviews) {
                     out.println("<div class=\"col-12\">");
-                    out.println("<p class=\"text-muted fst-italic\">No reviews yet.</p>");
+                    out.println("<p class=\"text-light fst-italic\">No reviews yet.</p>");
                     out.println("</div>");
                 }
 
