@@ -1,6 +1,9 @@
 
     <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
-    
+    <head>
+      <link rel="icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
+      <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
+    </head>
     <nav class="px-3 navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
         <a class="navbar-brand" href="index.jsp">Real Space</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
