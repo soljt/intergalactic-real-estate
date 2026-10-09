@@ -49,26 +49,17 @@ services:
             network304:
                 aliases:
                     - cosc304-java
+            # The edge proxy (soljt/edge-proxy) reaches the app here.
+            web:
+                aliases:
+                    - realspace-app
         expose:
             - "8080"
 
-    nginx:
-        image: nginx:stable
-        container_name: nginx-proxy
-        ports:
-        - "80:80"
-        - "443:443"
-        volumes:
-        - ./nginx/conf.d:/etc/nginx/conf.d:ro
-        - /srv/portfolio/dist:/usr/share/nginx/html:ro
-        - /etc/ssl/soljt:/etc/ssl/soljt:ro            
-        depends_on:
-        - app
-        networks:
-        - network304
-        restart: unless-stopped
 volumes: 
     cosc304-db:
     mysql-db:
 networks:
     network304:
+    web:
+        external: true
