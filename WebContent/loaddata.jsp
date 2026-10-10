@@ -16,7 +16,7 @@ out.print("<h1>Connecting to database.</h1><br><br>");
 String url = "jdbc:sqlserver://cosc304-sqlserver:1433;TrustServerCertificate=True";
 //private String url = "jdbc:sqlserver://cosc304-sqlserver:1433;TrustServerCertificate=True";
 String uid = "sa";
-String pw = "304#sa#pw";
+String pw = System.getenv("DB_PASSWORD");
 
 try
     {	// Load driver class
