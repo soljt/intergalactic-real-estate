@@ -6,7 +6,8 @@ services:
         restart: always
         environment:
             ACCEPT_EULA: 'Y'
-            SA_PASSWORD: '304#sa#pw'
+            # From .env, which is not in git; see .env.example.
+            SA_PASSWORD: ${SA_PASSWORD:?set SA_PASSWORD in .env}
         volumes:
             - cosc304-db:/var/lib/mssql            
             - ./WebContent/ddl:/scripts
@@ -43,6 +44,10 @@ services:
         depends_on:
             - cosc304-sqlserver
         container_name: cosc304-java
+        restart: unless-stopped
+        environment:
+            # Read by the JSPs (System.getenv) to log in to the database.
+            DB_PASSWORD: ${SA_PASSWORD:?set SA_PASSWORD in .env}
         volumes:
             - ./WebContent:/usr/local/tomcat/webapps/shop/
         networks:

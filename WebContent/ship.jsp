@@ -23,7 +23,7 @@
 //Connection info
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";		
 String uid = "sa";
-String pw = "304#sa#pw";
+String pw = System.getenv("DB_PASSWORD");
 
 try (Connection con = DriverManager.getConnection(url, uid, pw);) 
 {
@@ -32,12 +32,18 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);)
 	con.setAutoCommit(false);
 
 	// TODO: Get order id
-	Statement stmt = con.createStatement();
-	String id = request.getParameter("orderId");
+	int id;
+	try {
+		id = Integer.parseInt(request.getParameter("orderId"));
+	} catch (NumberFormatException e) {
+		out.println("<h3>That order number does not match any current orders.</h3>");
+		return;
+	}
 
 	// TODO: Check if valid order id
-	String sql = "SELECT COUNT(1) FROM ordersummary WHERE orderId = " + id;
-	ResultSet rst = stmt.executeQuery(sql);
+	PreparedStatement check = con.prepareStatement("SELECT COUNT(1) FROM ordersummary WHERE orderId = ?");
+	check.setInt(1, id);
+	ResultSet rst = check.executeQuery();
 	rst.next();
 	if (rst.getInt(1) != 1) {
 		out.println("<h3>That order number does not match any current orders.</h3>");
@@ -47,15 +53,16 @@ try (Connection con = DriverManager.getConnection(url, uid, pw);)
 	con.setAutoCommit(false);
 
 	// TODO: Retrieve all items in order with given id
-	sql = "SELECT productId, quantity FROM orderproduct WHERE orderId = " + id + " ORDER BY productId";
-	rst = stmt.executeQuery(sql);
+	PreparedStatement items = con.prepareStatement("SELECT productId, quantity FROM orderproduct WHERE orderId = ? ORDER BY productId");
+	items.setInt(1, id);
+	rst = items.executeQuery();
 
 	// TODO: Create a new shipment record.
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 	Date date = new Date();  
 	String shipmentDesc = "Test description of order.";
 	int warehouseId = 1;
-	sql = "INSERT INTO shipment(shipmentDate, shipmentDesc, warehouseId) VALUES (?, ?, ?)";
+	String sql = "INSERT INTO shipment(shipmentDate, shipmentDesc, warehouseId) VALUES (?, ?, ?)";
 	PreparedStatement pstmt = con.prepareStatement(sql);
 	pstmt.setString(1, formatter.format(date));
 	pstmt.setString(2, shipmentDesc);

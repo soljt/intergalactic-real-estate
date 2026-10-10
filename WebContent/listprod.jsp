@@ -91,7 +91,7 @@ catch (java.lang.ClassNotFoundException e)
 // Make the connection
 String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";			
 String uid = "sa";
-String pw = "304#sa#pw";
+String pw = System.getenv("DB_PASSWORD");
 	
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
 Statement stmt = con.createStatement();) 
