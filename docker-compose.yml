@@ -1,5 +1,4 @@
-version: '3.8'
-services:             
+services:
     cosc304-postgres:
         image: postgres:18-alpine@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873
         container_name: cosc304-postgres
@@ -13,6 +12,15 @@ services:
         volumes:
             - postgres-data:/var/lib/postgresql
             - ./db/init:/docker-entrypoint-initdb.d:ro
+        read_only: true
+        tmpfs:
+            - /var/run/postgresql
+            - /tmp
+        cap_drop: [ALL]
+        # The entrypoint fixes ownership of the data directory as root, then
+        # switches to the postgres user.
+        cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+        security_opt: [no-new-privileges:true]
         networks:
             - network304
     app:
@@ -28,13 +36,24 @@ services:
             # Read by the JSPs (System.getenv) to log in to the database.
             DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
         volumes:
-            - ./WebContent:/usr/local/tomcat/webapps/shop/
+            - ./WebContent:/usr/local/tomcat/webapps/shop/:ro
+        # Tomcat only writes compiled JSPs, temp files, logs, and an empty
+        # directory for per-app config.
+        read_only: true
+        tmpfs:
+            - /usr/local/tomcat/conf/Catalina
+            - /usr/local/tomcat/work
+            - /usr/local/tomcat/temp
+            - /usr/local/tomcat/logs
+            - /tmp
+        cap_drop: [ALL]
+        security_opt: [no-new-privileges:true]
         networks:
             network304:
                 aliases:
                     - cosc304-java
-            # The edge proxy (soljt/edge-proxy) reaches the app here.
-            web:
+            # The home ingress (soljt/edge-proxy, home/) reaches the app here.
+            ingress:
                 aliases:
                     - realspace-app
         expose:
@@ -43,6 +62,10 @@ services:
 volumes:
     postgres-data:
 networks:
+    # Internal: neither container can reach anything outside the two.
     network304:
-    web:
+        internal: true
+    # Created by the home ingress, which has to be started first.
+    ingress:
         external: true
+        name: ingress-realspace
