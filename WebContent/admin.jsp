@@ -22,18 +22,13 @@
     <%
     // TODO: Write SQL query that prints out total order amount by day
     
-    // Make the connection
-    /*String url = "jdbc:sqlserver://mssql-lab7:1433;DatabaseName=tempdb;TrustServerCertificate=True";		
-    String uid = "SA";
-    String pw = "YourStrong@Passw0rd";*/
-    
     NumberFormat currFormat = NumberFormat.getCurrencyInstance();
         
     try //( Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt = con.createStatement();)
     {
         getConnection();
         Statement stmt = con.createStatement();
-        String sql = "SELECT sum(totalAmount), YEAR(orderDate),MONTH(orderDate),DAY(orderDate) from OrderSummary GROUP BY YEAR(orderDate),MONTH(orderDate),DAY(orderDate)";
+        String sql = "SELECT sum(totalAmount), EXTRACT(YEAR FROM orderDate), EXTRACT(MONTH FROM orderDate), EXTRACT(DAY FROM orderDate) FROM OrderSummary GROUP BY 2, 3, 4 ORDER BY 2, 3, 4";
         ResultSet rst = stmt.executeQuery(sql);
         out.println("<table class=\"table table-bordered table-secondary table-striped\"><tbody><tr><th>Order Date</th><th>Total Order Amount</th></tr>");
         while(rst.next())

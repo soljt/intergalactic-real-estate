@@ -1,53 +1,32 @@
 version: '3.8'
 services:             
-    cosc304-sqlserver:
-        image: mcr.microsoft.com/azure-sql-edge
-        container_name: cosc304-sqlserver
+    cosc304-postgres:
+        image: postgres:18-alpine@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873
+        container_name: cosc304-postgres
         restart: always
         environment:
-            ACCEPT_EULA: 'Y'
-            # From .env, which is not in git; see .env.example.
-            SA_PASSWORD: ${SA_PASSWORD:?set SA_PASSWORD in .env}
+            POSTGRES_DB: orders
+            # From .env, which is not in git; see .env.example. The superuser
+            # only uses it while the database is created, then db/init drops it.
+            POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+            DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
         volumes:
-            - cosc304-db:/var/lib/mssql            
-            - ./WebContent/ddl:/scripts
+            - postgres-data:/var/lib/postgresql
+            - ./db/init:/docker-entrypoint-initdb.d:ro
         networks:
-            network304:
-                aliases:
-                    - cosc304_sqlserver
-        command:
-            - /bin/bash
-            - -c
-            - |
-               /opt/mssql/bin/sqlservr &
-               pid=$$!
-               echo "Waiting for MS SQL to be available"
-               /opt/mssql-tools/bin/sqlcmd -l 30 -S localhost -h-1 -V1 -U sa -P $$SA_PASSWORD -Q "SET NOCOUNT ON SELECT \"YAY WE ARE UP\" , @@servername"
-               is_up=$$?
-               while [ $$is_up -ne 0 ] ; do 
-                 echo -e $$(date) 
-                 /opt/mssql-tools/bin/sqlcmd -l 30 -S localhost -h-1 -V1 -U sa -P $$SA_PASSWORD -Q "SET NOCOUNT ON SELECT \"YAY WE ARE UP\" , @@servername"
-                 is_up=$$?
-                 sleep 5 
-               done
-               for foo in /scripts/SQLServer*.ddl
-                 do /opt/mssql-tools/bin/sqlcmd -U sa -P $$SA_PASSWORD -l 30 -e -i $$foo
-               done
-               trap "kill -15 $$pid" SIGTERM
-               wait $$pid
-               exit 0         
+            - network304
     app:
         build:
             context: ./
             dockerfile: Dockerfile
         image: cosc304-java
         depends_on:
-            - cosc304-sqlserver
+            - cosc304-postgres
         container_name: cosc304-java
         restart: unless-stopped
         environment:
             # Read by the JSPs (System.getenv) to log in to the database.
-            DB_PASSWORD: ${SA_PASSWORD:?set SA_PASSWORD in .env}
+            DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
         volumes:
             - ./WebContent:/usr/local/tomcat/webapps/shop/
         networks:
@@ -61,9 +40,8 @@ services:
         expose:
             - "8080"
 
-volumes: 
-    cosc304-db:
-    mysql-db:
+volumes:
+    postgres-data:
 networks:
     network304:
     web:

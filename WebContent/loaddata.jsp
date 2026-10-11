@@ -13,14 +13,13 @@
 out.print("<h1>Connecting to database.</h1><br><br>");
 
 // User id, password, and server information
-String url = "jdbc:sqlserver://cosc304-sqlserver:1433;TrustServerCertificate=True";
-//private String url = "jdbc:sqlserver://cosc304-sqlserver:1433;TrustServerCertificate=True";
-String uid = "sa";
+String url = "jdbc:postgresql://cosc304-postgres:5432/orders?stringtype=unspecified";
+String uid = "shop";
 String pw = System.getenv("DB_PASSWORD");
 
 try
     {	// Load driver class
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Class.forName("org.postgresql.Driver");
     }
 catch (java.lang.ClassNotFoundException e)
     {
@@ -70,7 +69,11 @@ try
 catch (Exception e)
 {
     out.print(e);
-}  
+}
+finally
+{
+    closeConnection();
+}
 %>
 </body>
 </html> 

@@ -43,6 +43,8 @@
                                 <select class="form-select" name="productId" id="productId">
                                 <%
                                     String sql = "SELECT productId, productName FROM product"; //in case the list would be too long
+                                    getConnection();
+                                    try {
                                     PreparedStatement pstmt = con.prepareStatement(sql);
                                     ResultSet rs = pstmt.executeQuery();
                                     
@@ -51,6 +53,9 @@
                                         String pname = rs.getString("productName");
 
                                         out.println(String.format("<option value=\"%d\">%s</option>", pid, pname));
+                                    }
+                                    } finally {
+                                        closeConnection();
                                     }
                                 %>
                                   </select>

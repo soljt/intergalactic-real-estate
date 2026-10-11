@@ -78,7 +78,7 @@ String categoryId = request.getParameter("category");
 //Note: Forces loading of SQL Server driver
 try
 {	// Load driver class
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	Class.forName("org.postgresql.Driver");
 }
 catch (java.lang.ClassNotFoundException e)
 {
@@ -89,8 +89,8 @@ catch (java.lang.ClassNotFoundException e)
 // Use it to build a query and print out the resultset.  Make sure to use PreparedStatement!
 
 // Make the connection
-String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";			
-String uid = "sa";
+String url = "jdbc:postgresql://cosc304-postgres:5432/orders?stringtype=unspecified";			
+String uid = "shop";
 String pw = System.getenv("DB_PASSWORD");
 	
 try ( Connection con = DriverManager.getConnection(url, uid, pw);
@@ -100,10 +100,10 @@ Statement stmt = con.createStatement();)
 	// Write query to retrieve all order summary records
 
 	//Case where both category and name are given
-	String sql1 = "SELECT productId, productName,  productImageURL, productDesc, productPrice FROM product WHERE productName LIKE ? AND categoryId=?";
+	String sql1 = "SELECT productId, productName,  productImageURL, productDesc, productPrice FROM product WHERE productName ILIKE ? AND categoryId=?";
 
 	//Case where only product name is given
-	String sql2 = "SELECT productId, productName,  productImageURL, productDesc, productPrice FROM product WHERE productName LIKE ?";
+	String sql2 = "SELECT productId, productName,  productImageURL, productDesc, productPrice FROM product WHERE productName ILIKE ?";
 
 	//Case where only category is given
 	String sql3 = "SELECT productId, productName,  productImageURL, productDesc, productPrice  FROM product WHERE categoryId=?";

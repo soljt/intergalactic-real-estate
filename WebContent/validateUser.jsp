@@ -111,8 +111,6 @@ int validateUser(JspWriter out,HttpServletRequest request, HttpSession session) 
 		try 
 		{
 			getConnection();
-			Statement stmt = con.createStatement(); 
-			stmt.execute("USE orders");
 
 			String sql = "INSERT INTO customer(firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);		
