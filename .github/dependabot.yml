@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    ignore:
+      # Tomcat 10+ moves to the jakarta namespace.
+      - dependency-name: tomcat
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: docker-compose
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
