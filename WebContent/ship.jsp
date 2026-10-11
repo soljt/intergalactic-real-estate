@@ -21,8 +21,8 @@
 <div class="container p-3" >
 <%
 //Connection info
-String url = "jdbc:sqlserver://cosc304_sqlserver:1433;DatabaseName=orders;TrustServerCertificate=True";		
-String uid = "sa";
+String url = "jdbc:postgresql://cosc304-postgres:5432/orders?stringtype=unspecified";		
+String uid = "shop";
 String pw = System.getenv("DB_PASSWORD");
 
 try (Connection con = DriverManager.getConnection(url, uid, pw);) 

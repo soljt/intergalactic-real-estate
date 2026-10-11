@@ -10,15 +10,11 @@
 <%
 // TODO: Write SQL query that prints out total order amount by day
 
-// Make the connection
-/*String url = "jdbc:sqlserver://mssql-lab7:1433;DatabaseName=tempdb;TrustServerCertificate=True";		
-String uid = "SA";
-String pw = "YourStrong@Passw0rd";*/
-
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
     
 try //( Connection con = DriverManager.getConnection(url, uid, pw);)
 {
+    getConnection();
     Statement stmt = con.createStatement();
 
     //Get parameters for new/update product from form
@@ -49,7 +45,7 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
         pstmt_new.setString(1, productName);
         pstmt_new.setString(2, productPrice);
         pstmt_new.setString(3, productDesc);
-        pstmt_new.executeQuery();
+        pstmt_new.executeUpdate();
         }
         
         //Updates a product
@@ -129,7 +125,7 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
         pstmt.setString(4, phone);
         pstmt.setString(5, uid);
         pstmt.setString(6, pass);
-        pstmt.executeQuery();
+        pstmt.executeUpdate();
     }
     
     //Get parameters for warehouse add/update from form
@@ -151,12 +147,13 @@ try //( Connection con = DriverManager.getConnection(url, uid, pw);)
         String add_warehouse = "INSERT INTO warehouse(warehouseName) VALUES (?)";
         PreparedStatement pstmt_addware = con.prepareStatement(add_warehouse);
         pstmt_addware.setString(1, warehouseName);
-        pstmt_addware.executeQuery();
+        pstmt_addware.executeUpdate();
     }
           
 }   catch(SQLException ex){
     out.println(ex.toString());
 }finally{
+    closeConnection();
     response.sendRedirect("admin.jsp");
 }
 %>

@@ -26,7 +26,7 @@ String rating = request.getParameter("rating");
 String review = request.getParameter("review");
 String pid = request.getParameter("productId");
 
-DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH: mm: ss");  
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
 LocalDateTime now = LocalDateTime.now();  
 String time = dtf.format(now);
 
@@ -123,7 +123,7 @@ try{
     out.println(e);
 }
 finally{
-    
+    closeConnection();
 }
 
 

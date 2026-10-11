@@ -37,8 +37,6 @@
 		try 
 		{
 			getConnection();
-			Statement stmt = con.createStatement(); 
-			stmt.execute("USE orders");
 
 			String sql = "SELECT * FROM Customer WHERE userId = ? and password = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);			

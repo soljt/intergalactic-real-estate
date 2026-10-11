@@ -54,11 +54,11 @@
               
 
               <%
-              getConnection();
-
               String userquery = "SELECT firstName FROM customer WHERE userid = ?";
               String userid = (String)session.getAttribute("authenticatedUser");
               if(userid != null){
+                getConnection();
+                try {
                 PreparedStatement puser = con.prepareStatement(userquery);
                 puser.setString(1, userid);
 
@@ -68,6 +68,9 @@
                 out.println("<li class=\"nav-item\">");
                     out.println("<a class=\"nav-link \">"+ "Logged in as: " + fname + "</a>");
                 out.println("</li>");
+                } finally {
+                  closeConnection();
+                }
               }
               
 

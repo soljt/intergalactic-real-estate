@@ -23,9 +23,6 @@ String sql = "SELECT productImage FROM Product P  WHERE productId = ?";
 try 
 {
 	getConnection();
-	Statement st = con.createStatement(); 			
-	st.execute("USE orders");
-	st.close();
 
 	PreparedStatement stmt = con.prepareStatement(sql);
 	stmt.setInt(1,idVal);
